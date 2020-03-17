@@ -1,0 +1,32 @@
+// @import './xyz.scss';
+@import "./dashboard.scss";
+
+.error {
+  color: red;
+}
+.m {
+  margin: 10px;
+}
+.nav-item {
+  color: #ffffff;
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: 15px;
+}
+.dropdown-menu {
+  .menu-item {
+    font-family: Arial;
+    font-size: 15px;
+  }
+  .icon {
+    color: #3a85f5;
+    margin-right: 5px;
+  }
+}
+.title-header {
+  color: #3a85f5;
+  font-weight: bold;
+  font-size: 20px;
+  text-decoration: none;
+  margin-right: 15px;
+}

@@ -1,0 +1,35 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #ffffff;
+  .icon {
+    display: flex;
+    flex-direction: row;
+    size: 60px;
+    justify-content: space-between;
+    align-items: center;
+    .notification {
+      margin: 10px;
+      font-size: 30px;
+    }
+    .user {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 10px;
+    
+      .testCircle {
+        width: 50px;
+        height: 50px;
+        border-radius: 150px;
+        background-color: #da554b;
+        padding: 15px;
+      }
+    }
+    .details {        
+        font-size: 15px;
+    }
+  }
+}
