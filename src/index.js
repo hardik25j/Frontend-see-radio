@@ -14,7 +14,7 @@ import './index.css';
 import './assets/scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-toastify/dist/ReactToastify.css';
-import ClientContract from './component/ClientContract';
+import ClientContract from './client-contract/ClientContract';
 
 ReactDOM.render(
 	<Router>

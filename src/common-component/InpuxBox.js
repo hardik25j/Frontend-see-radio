@@ -38,13 +38,14 @@ export const DropDownBox = (props) => {
 				name={props.name}
 				title={props.label}
 				isClearable={true}
+				isDisabled={props.isDisabled}
 				options={props.list}
-				value={props.list.find(item => item.value === props.value)}
+				value={props.list ? props.list.find(item => item.value === props.value) : null}
 				onChange={(selected) => {
 					let e = {
 						target: {
 							'name': props.name,
-							'value': selected ? selected.value :'',
+							'value': selected ? selected.value : '',
 						}
 					}
 					props.onChange(e)
