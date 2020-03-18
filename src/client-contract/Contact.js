@@ -5,9 +5,7 @@ import { InputBox } from "../common-component/InpuxBox";
 class Contact extends Component {
   constructor(props) {
     super(props);
-
   }
-
   render() {
     const { isReq, secondary,
       firstName, lastName, email, phone, errors,

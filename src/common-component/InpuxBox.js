@@ -3,64 +3,71 @@ import { Input, FormGroup, Label } from 'reactstrap';
 import ReactSelect from 'react-select';
 
 export const InputBox = (props) => {
+	const {
+		id, label, placeholder, isDisabled, type, name,
+		isReq, value, onChange, onBlur, onFocus, onClick, error
+	} = props;
 	return (
 		<FormGroup>
 			<Label className="font-weight-bold">
-				{props.label}
-				{props.isReq && <span style={{ color: "red" }}> * </span>}
+				{label}
+				{isReq && <span style={{ color: "red" }}> * </span>}
 			</Label><br />
 			<Input
-				id={props.id}
-				title={props.label}
-				placeholder={props.placeholder}
-				type={props.type}
-				name={props.name}
-				data-attribute={props.isReq}
-				value={props.value}
-				onChange={props.onChange}
-				onBlur={props.onBlur}
-				onFocus={props.onFocus}
-				onClick={props.onClick}
+				id={id}
+				title={label}
+				placeholder={placeholder}
+				disabled={isDisabled}
+				type={type}
+				name={name}
+				data-attribute={isReq}
+				value={value}
+				onChange={onChange}
+				onBlur={onBlur}
+				onFocus={onFocus}
+				onClick={onClick}
 			/>
-			{props.error && <span style={{ color: "red" }}> {props.error} </span>}
+			{error && <span style={{ color: "red" }}> {error} </span>}
 		</FormGroup >
 	);
 }
 
 export const DropDownBox = (props) => {
+	const { isDisabled, list, label, name, isReq, value, onChange, onBlur, error } = props;
 	return (
 		<FormGroup>
 			<Label className="font-weight-bold">
-				{props.label}
-				{props.isReq && <span style={{ color: "red" }}> * </span>}
+				{label}
+				{isReq && <span style={{ color: "red" }}> * </span>}
 			</Label><br />
 			<ReactSelect
-				name={props.name}
-				title={props.label}
+				name={name}
+				title={label}
 				isClearable={true}
-				isDisabled={props.isDisabled}
-				options={props.list}
-				value={props.list ? props.list.find(item => item.value === props.value) : null}
-				onChange={(selected) => {
+				isDisabled={isDisabled}
+				options={list}
+				value={props.value}
+				// value={list ? list.find(item => item.value === value) : null}
+				onChange={(selectedOption) => {
 					let e = {
 						target: {
-							'name': props.name,
-							'value': selected ? selected.value : '',
+							'name': name,
+							'value': selectedOption ? selectedOption : '',
 						}
 					}
-					props.onChange(e)
+					onChange(e);
 				}}
-				onBlur={() => {
+				onBlur={(selectedOption) => {
 					let e = {
 						target: {
-							'name': props.name,
-							'value': props.value,
+							'name': name,
+							'value': selectedOption,
 						}
 					}
-					props.onBlur(e)
+					onBlur(e);
 				}}
 			/>
-			{props.error && <span style={{ color: "red" }}> {props.error} </span>}
+			{error && <span style={{ color: "red" }}> {error} </span>}
 		</FormGroup>
 	);
 }

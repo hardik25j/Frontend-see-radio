@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { Row, Col, Card, CardBody, CardTitle, FormGroup } from "reactstrap";
-import { InputBox, DropDownBox } from "../common-component/InpuxBox";
-import { getApi } from '../utils/interceptors';
-import { toast } from 'react-toastify';
+import { Row, Col, Card, CardBody } from "reactstrap";
 import Contact from "./Contact";
 import Address from "./Address";
+import Company from "./Company";
 
 class ClientContract extends Component {
 	constructor(props) {
@@ -41,72 +39,57 @@ class ClientContract extends Component {
 		};
 		this.industryList = [];
 		this.salesPersonList = [];
-		this.stateProvinceList = [];
 		this.countryList = [
 			{ value: "CA", label: "Canada" },
 			{ value: "US", label: "United States" },
 		];
 	}
-
-	componentDidMount() {
-		getApi('api/company/persons')
-			.then(response => {
-				response.data.map((item) => {
-					const { id, firstName, lastName, email } = item.Person;
-					this.salesPersonList.push({ value: id, label: firstName + " " + lastName + "- " + email })
-				})
-			})
-			.then(
-				getApi('api/wholesalepricing/getIndustries')
-					.then(response => {
-						response.data.map((item) => {
-							this.industryList.push({ value: item.id, label: item.name })
-						})
-					})
-			)
-			.catch(response => toast.error(response.errorMessage))
-	}
-
 	handleChange = (e) => {
-		const { form } = this.state;
+		const { form, businessAddress } = this.state;
 		const { name, value } = e.target;
-		const { address1, address1Secondary, address2, address2Secondary,
-			city, citySecondary, country, countrySecondary, stateProvince,
-			stateProvinceSecondary
-		}
 		form[name] = value;
 		if (businessAddress) {
 			form.address1Secondary = form.address1;
 			form.address2Secondary = form.address2;
-			fo
+			form.citySecondary = form.city;
+			form.countrySecondary = form.country;
+			form.stateProvinceSecondary = form.stateProvince;
+			form.postalSecondary = form.postal;
+		}
+		else {
+			form.address1Secondary = '';
+			form.address2Secondary = '';
+			form.citySecondary = '';
+			form.countrySecondary = '';
+			form.stateProvinceSecondary = '';
+			form.postalSecondary = '';
 		}
 		this.setState({ form });
 	};
-
-	handleCountry = (e) => {
-		this.stateProvinceList = [];
-		console.log("LIST", e.target.value);
-		getApi(`pub/states/${e.target.value}`)
-			.then(response => {
-				response.data.map((item) => {
-					const { name, code } = item;
-					this.stateProvinceList = [...this.stateProvinceList, { value: code, label: name }]
-				})
-				console.log(this.stateProvinceList);
-			})
-			.catch(response => toast.error(response.errorMessage))
-		this.handleChange(e);
-	}
-
 	checkHandler = (e) => {
-		const { name, checked } = e.target;
-		this.setState({ [name]: checked });
+		const { checked } = e.target;
+		const { form, businessAddress } = this.state;
+		if (checked) {
+			form.address1Secondary = form.address1;
+			form.address2Secondary = form.address2;
+			form.citySecondary = form.city;
+			form.countrySecondary = form.country;
+			form.stateProvinceSecondary = form.stateProvince;
+			form.postalSecondary = form.postal;
+		}
+		else {
+			form.address1Secondary = '';
+			form.address2Secondary = '';
+			form.citySecondary = '';
+			form.countrySecondary = '';
+			form.stateProvinceSecondary = '';
+			form.postalSecondary = '';
+		}
+		this.setState({ form, businessAddress: checked });
 	}
-
 	onFieldValidate = (e) => {
 		const { name, value } = e.target;
 		const { errors } = this.state;
-
 		let errorMsg = "";
 		if (!value) {
 			errorMsg = `Please Enter ${(name)}.`;
@@ -118,7 +101,6 @@ class ClientContract extends Component {
 		errors[name] = errorMsg;
 		this.setState({ errors });
 	};
-
 	checkValidation = (errors, data) => {
 		const finalErrors = {};
 		Object.keys(data).map((key) => {
@@ -135,15 +117,11 @@ class ClientContract extends Component {
 	};
 
 	render() {
-		const { form, errors } = this.state;
-		const {
-			companyName, companyWebsite, salesPerson,
-			industry, firstName, lastName,
-			email, phone, firstNameSecondary,
-			lastNameSecondary, emailSecondary,
-			phoneSecondary, address1,
-			address2, city, country,
-			stateProvince, postal } = form;
+		const { form, errors, businessAddress } = this.state;
+		const { companyName, companyWebsite, salesPerson, industry, firstName, lastName, email, phone,
+			firstNameSecondary, lastNameSecondary, emailSecondary, phoneSecondary, address1, address2,
+			city, country, stateProvince, postal, address1Secondary, address2Secondary, citySecondary,
+			countrySecondary, stateProvinceSecondary, postalSecondary } = form;
 		return (
 			<>
 				<Row className="d-flex justify-content-center">
@@ -151,62 +129,18 @@ class ClientContract extends Component {
 						<div className="title-header">Add New Advertiser</div>
 						<Card className="py-5 px-3">
 							<CardBody>
-								<Row>
-									<Col>
-										<InputBox
-											label="Company Name"
-											type="text"
-											name="companyName"
-											isReq={true}
-											placeholder="Company Name"
-											value={companyName}
-											error={errors.companyName}
-											onChange={this.handleChange}
-											onBlur={this.onFieldValidate}
-										/>
-									</Col>
-									<Col>
-										<InputBox
-											label="Company Website Address"
-											type="text"
-											name="companyWebsite"
-											isReq={true}
-											placeholder="www.abc.com"
-											value={companyWebsite}
-											error={errors.companyWebsite}
-											onChange={this.handleChange}
-											onBlur={this.onFieldValidate}
-										/>
-									</Col>
-								</Row>
-								<Row>
-									<Col>
-										<DropDownBox
-											label="Salesperson"
-											name="salesPerson"
-											isReq={true}
-											list={this.salesPersonList}
-											placeholder="Company Name"
-											value={salesPerson}
-											error={errors.salesPerson}
-											onChange={this.handleChange}
-											onBlur={this.onFieldValidate}
-										/>
-									</Col>
-									<Col>
-										<DropDownBox
-											label="Industry Category"
-											name="industry"
-											isReq={true}
-											list={this.industryList}
-											placeholder="Industry Name"
-											value={industry}
-											error={errors.industry}
-											onChange={this.handleChange}
-											onBlur={this.onFieldValidate}
-										/>
-									</Col>
-								</Row>
+								<Company
+									isReq={true}
+									companyName={companyName}
+									companyWebsite={companyWebsite}
+									salesPerson={salesPerson}
+									industry={industry}
+									errors={errors}
+									industryList={this.industryList}
+									salesPersonList={this.salesPersonList}
+									handleChange={this.handleChange}
+									onFieldValidate={this.onFieldValidate}
+								/>
 
 								<div className="form-title">Primary Contact</div>
 								<Contact
@@ -215,7 +149,7 @@ class ClientContract extends Component {
 									lastName={lastName}
 									email={email}
 									phone={phone}
-									errors={this.state.errors}
+									errors={errors}
 									handleChange={this.handleChange}
 									onFieldValidate={this.onFieldValidate}
 								/>
@@ -235,6 +169,7 @@ class ClientContract extends Component {
 
 								<div className="form-title">Business Address</div>
 								<Address
+									isDisabled={false}
 									address1={address1}
 									address2={address2}
 									city={city}
@@ -242,7 +177,6 @@ class ClientContract extends Component {
 									stateProvince={stateProvince}
 									postal={postal}
 									errors={errors}
-									stateProvinceList={this.stateProvinceList}
 									countryList={this.countryList}
 									handleChange={this.handleChange}
 									handleCountry={this.handleCountry}
@@ -254,20 +188,20 @@ class ClientContract extends Component {
 								<input type="checkbox" className="checkbox" name="businessAddress" onChange={this.checkHandler} />
 								Same as Business Address</div>
 								<Address
-									address1={address1}
-									address2={address2}
-									city={city}
-									country={country}
-									stateProvince={stateProvince}
-									postal={postal}
-									errors={errors}
-									stateProvinceList={this.stateProvinceList}
+									secondary={true}
+									isDisabled={businessAddress}
+									address1={address1Secondary}
+									address2={address2Secondary}
+									city={citySecondary}
+									country={countrySecondary}
+									stateProvince={stateProvinceSecondary}
+									postal={postalSecondary}
 									countryList={this.countryList}
+									errors={errors}
 									handleCountry={this.handleCountry}
 									handleChange={this.handleChange}
 									onFieldValidate={this.onFieldValidate}
 								/>
-
 								<Row className="d-flex justify-content-end">
 									<input type="button" className="btn btn-outline-secondary button" value="Cancel" />
 									<input type="button" className="btn btn-primary button" value="Next" />

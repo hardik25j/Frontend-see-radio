@@ -1,17 +1,37 @@
 import React, { Component } from "react";
-import { Row, Col, Card, CardBody, CardTitle, FormGroup } from "reactstrap";
+import { Row, Col } from "reactstrap";
 import { InputBox, DropDownBox } from "../common-component/InpuxBox";
+import { getApi } from '../utils/interceptors';
+import { toast } from 'react-toastify';
 
 class Address extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      country: ''
+    }
+    this.stateProvinceList = [];
   }
+
+  handleCountry = (e) => {
+    const { name, value } = e.target;
+    this.stateProvinceList = [];
+    this.setState({ [name]: value });
+    getApi(`pub/states/${e.target.value}`)
+      .then(response => {
+        response.data.map((item) => {
+          const { name, code } = item;
+          this.stateProvinceList = [...this.stateProvinceList, { value: code, label: name }]
+        })
+      })
+      .catch(response => toast.error(response.errorMessage))
+    this.props.handleChange(e);
+  }
+
   render() {
     const {
-      address1, address2, city, country,
-      stateProvince, postal, errors, stateProvinceList,
-      handleCountry, countryList, handleChange, onFieldValidate
+      isDisabled, secondary, address1, address2, city, country,
+      stateProvince, postal, errors, countryList, handleChange, onFieldValidate
     } = this.props;
 
     return (
@@ -21,8 +41,9 @@ class Address extends Component {
             <InputBox
               label="Address"
               type="text"
-              name="address1"
+              name={secondary ? "address1Secondary" : "address1"}
               isReq={true}
+              isDisabled={isDisabled}
               placeholder="Enter Address"
               value={address1}
               error={errors.address1}
@@ -34,7 +55,8 @@ class Address extends Component {
             <InputBox
               label="Address line 2"
               type="text"
-              name="address2"
+              name={secondary ? "address2Secondary" : "address2"}
+              isDisabled={isDisabled}
               placeholder="Enter Address"
               value={address2}
               error={errors.address2}
@@ -48,8 +70,9 @@ class Address extends Component {
             <InputBox
               label="City"
               type="text"
-              name="city"
+              name={secondary ? "citySecondary" : "city"}
               isReq={true}
+              isDisabled={isDisabled}
               placeholder="Enter City"
               value={city}
               error={errors.city}
@@ -60,12 +83,13 @@ class Address extends Component {
           <Col>
             <DropDownBox
               label="Country"
-              name="country"
+              name={secondary ? "countrySecondary" : "country"}
               isReq={true}
+              isDisabled={isDisabled}
               list={countryList}
               value={country}
               error={errors.country}
-              onChange={handleCountry}
+              onChange={this.handleCountry}
               onBlur={onFieldValidate}
             />
           </Col>
@@ -73,11 +97,11 @@ class Address extends Component {
         <Row>
           <Col>
             <DropDownBox
-              label={country ? `${country == 'CA' ? 'Province' : 'State'}` : 'State/Province'}
-              name="stateProvince"
+              label={country.value ? `${country.value == 'CA' ? 'Province' : 'State'}` : 'State/Province'}
+              name={secondary ? "stateProvinceSecondary" : "stateProvince"}
               isReq={true}
-              isDisabled={!country}
-              list={stateProvinceList}
+              isDisabled={isDisabled ? true : !country}
+              list={this.stateProvinceList}
               value={stateProvince}
               error={errors.stateProvince}
               onChange={handleChange}
@@ -88,8 +112,9 @@ class Address extends Component {
             <InputBox
               label="Postal"
               type="text"
-              name="postal"
+              name={secondary ? "postalSecondary" : "postal"}
               isReq={true}
+              isDisabled={isDisabled}
               placeholder="Enter Postal Code"
               value={postal}
               error={errors.postal}
