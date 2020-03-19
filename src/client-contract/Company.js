@@ -5,11 +5,11 @@ import { getApi } from '../utils/interceptors';
 import { toast } from 'react-toastify';
 
 class Company extends Component {
-constructor(props){
-  super(props);
-  this.salesPersonList=[];
-  this.industryList=[];
-}
+  constructor(props) {
+    super(props);
+    this.salesPersonList = [];
+    this.industryList = [];
+  }
   componentDidMount() {
     getApi('api/company/persons')
       .then(response => {
@@ -30,8 +30,8 @@ constructor(props){
   }
 
   render() {
-    const { isReq, companyName, companyWebsite, salesPerson,
-      industry, errors, handleChange, onFieldValidate
+    const { isReq, companyName, companyWebsite, salesPerson, changeDropDown,
+      industry, errors, handleChange, onFieldValidate,
     } = this.props;
 
     return (
@@ -74,7 +74,7 @@ constructor(props){
               placeholder="Company Name"
               value={salesPerson}
               error={errors.salesPerson}
-              onChange={handleChange}
+              onChange={changeDropDown}
               onBlur={onFieldValidate}
             />
           </Col>
@@ -87,7 +87,7 @@ constructor(props){
               placeholder="Industry Name"
               value={industry}
               error={errors.industry}
-              onChange={handleChange}
+              onChange={changeDropDown}
               onBlur={onFieldValidate}
             />
           </Col>

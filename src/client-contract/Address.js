@@ -11,27 +11,34 @@ class Address extends Component {
       country: ''
     }
     this.stateProvinceList = [];
+    this.countryList = [
+      { value: "CA", label: "Canada" },
+      { value: "US", label: "United States" },
+    ];
   }
 
   handleCountry = (e) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     this.stateProvinceList = [];
-    this.setState({ [name]: value });
-    getApi(`pub/states/${e.target.value}`)
-      .then(response => {
-        response.data.map((item) => {
-          const { name, code } = item;
-          this.stateProvinceList = [...this.stateProvinceList, { value: code, label: name }]
+    this.setState({ country: value });
+
+    value
+      ? getApi(`pub/states/${e.target.value.value}`)
+        .then(response => {
+          response.data.map((item) => {
+            const { name, code } = item;
+            this.stateProvinceList = [...this.stateProvinceList, { value: code, label: name }]
+          })
+          this.props.changeDropDown(e);
         })
-      })
-      .catch(response => toast.error(response.errorMessage))
-    this.props.handleChange(e);
+        .catch(response => toast.error(response.errorMessage))
+      : this.props.changeDropDown(e);
   }
 
   render() {
     const {
-      isDisabled, secondary, address1, address2, city, country,
-      stateProvince, postal, errors, countryList, handleChange, onFieldValidate
+      isDisabled, secondary, address1, address2, city, country, changeDropDown,
+      stateProvince, postal, errors, handleChange, onFieldValidate
     } = this.props;
 
     return (
@@ -46,7 +53,7 @@ class Address extends Component {
               isDisabled={isDisabled}
               placeholder="Enter Address"
               value={address1}
-              error={errors.address1}
+              error={isDisabled ? null : secondary ? errors.address1Secondary : errors.address1}
               onChange={handleChange}
               onBlur={onFieldValidate}
             />
@@ -59,7 +66,7 @@ class Address extends Component {
               isDisabled={isDisabled}
               placeholder="Enter Address"
               value={address2}
-              error={errors.address2}
+              error={isDisabled ? null : secondary ? errors.address2Secondary : errors.address2}
               onChange={handleChange}
               onBlur={onFieldValidate}
             />
@@ -75,7 +82,7 @@ class Address extends Component {
               isDisabled={isDisabled}
               placeholder="Enter City"
               value={city}
-              error={errors.city}
+              error={isDisabled ? null : secondary ? errors.citySecondary : errors.city}
               onChange={handleChange}
               onBlur={onFieldValidate}
             />
@@ -86,9 +93,9 @@ class Address extends Component {
               name={secondary ? "countrySecondary" : "country"}
               isReq={true}
               isDisabled={isDisabled}
-              list={countryList}
+              list={this.countryList}
               value={country}
-              error={errors.country}
+              error={isDisabled ? null : secondary ? errors.countrySecondary : errors.country}
               onChange={this.handleCountry}
               onBlur={onFieldValidate}
             />
@@ -100,11 +107,11 @@ class Address extends Component {
               label={country.value ? `${country.value == 'CA' ? 'Province' : 'State'}` : 'State/Province'}
               name={secondary ? "stateProvinceSecondary" : "stateProvince"}
               isReq={true}
-              isDisabled={isDisabled ? true : !country}
+              isDisabled={isDisabled ? true : !country.value}
               list={this.stateProvinceList}
               value={stateProvince}
-              error={errors.stateProvince}
-              onChange={handleChange}
+              error={isDisabled ? null : secondary ? errors.stateProvinceSecondary : errors.stateProvince}
+              onChange={changeDropDown}
               onBlur={onFieldValidate}
             />
           </Col>
@@ -117,7 +124,7 @@ class Address extends Component {
               isDisabled={isDisabled}
               placeholder="Enter Postal Code"
               value={postal}
-              error={errors.postal}
+              error={isDisabled ? null : secondary ? errors.postalSecondary : errors.postal}
               onChange={handleChange}
               onBlur={onFieldValidate}
             />

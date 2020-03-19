@@ -68,7 +68,6 @@ export default class Login extends Component {
       errorMsg = `Password must be at least 6 characters long.`;
     }
     errors[name] = errorMsg;
-    console.log("onField", errors);
     this.setState({ errors });
   };
 
@@ -97,7 +96,6 @@ export default class Login extends Component {
     };
     const validationError = this.checkValidation(errors, data);
     if (Object.keys(validationError).length !== 0) {
-      console.log("onsubmit", errors);
       this.setState({ errors: validationError });
     } else {
       let obj = this.state.form;

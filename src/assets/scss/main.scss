@@ -30,21 +30,28 @@
   text-decoration: none;
   margin-right: 15px;
 }
-.form-title{
-  background-color:#dce6f8 ;
+.form-title {
+  background-color: #dce6f8;
   font-weight: bold;
-  color: gray;  
+  color: gray;
   font-size: 15px;
   text-decoration: none;
   padding: 5px;
-  margin:10px 0px 10px 0px;
+  margin: 10px 0px 10px 0px;
 }
-.button{
+.button {
   height: 40px;
   width: 150px;
-  margin: 20px 10px 0px 0px;
+  margin-top:20px !important;
+  margin-left:10px !important;
+  margin-right: 100px !important;
   box-shadow: 1px 1px gray;
 }
-.checkbox{
+.sumbmit-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.checkbox {
   margin: 0px 10px 0px 10px;
 }

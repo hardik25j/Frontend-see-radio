@@ -7,7 +7,6 @@ import PrivateRoute from '../common-component/PrivateRoute';
 const switchRoutes = (
 	<Switch>
 		{dashboardRoutes.map((prop, key) => {
-			console.log(prop.path);
 			return (
 				<PrivateRoute
 					path={prop.path}

@@ -4,7 +4,7 @@ import ReactSelect from 'react-select';
 
 export const InputBox = (props) => {
 	const {
-		id, label, placeholder, isDisabled, type, name,
+		id, className, label, placeholder, isDisabled, type, name,
 		isReq, value, onChange, onBlur, onFocus, onClick, error
 	} = props;
 	return (
@@ -14,6 +14,7 @@ export const InputBox = (props) => {
 				{isReq && <span style={{ color: "red" }}> * </span>}
 			</Label><br />
 			<Input
+				className={className}
 				id={id}
 				title={label}
 				placeholder={placeholder}
@@ -46,7 +47,7 @@ export const DropDownBox = (props) => {
 				isClearable={true}
 				isDisabled={isDisabled}
 				options={list}
-				value={props.value}
+				value={value}
 				// value={list ? list.find(item => item.value === value) : null}
 				onChange={(selectedOption) => {
 					let e = {
@@ -57,24 +58,15 @@ export const DropDownBox = (props) => {
 					}
 					onChange(e);
 				}}
-				onBlur={(selectedOption) => {
-					let e = {
-						target: {
-							'name': name,
-							'value': selectedOption,
-						}
-					}
-					onBlur(e);
-				}}
 			/>
 			{error && <span style={{ color: "red" }}> {error} </span>}
 		</FormGroup>
 	);
 }
 
-// InputBox.defaultProps = {
-// 	isReq: false
-// }
+InputBox.defaultProps = {
+	isReq: false
+}
 
 // InputBox.propTypes = {
 // 	type: PropTypes.string.isRequired,                                                                                                    //when we declare any props which is Required then must be defined their "its default value".

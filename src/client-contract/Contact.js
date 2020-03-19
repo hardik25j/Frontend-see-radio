@@ -1,11 +1,19 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
 import { InputBox } from "../common-component/InpuxBox";
+import { phoneNumberValidation } from "../common-component/Validation";
 
 class Contact extends Component {
   constructor(props) {
     super(props);
   }
+
+  handlePhone = (e) => {
+    let { value } = e.target;
+    e.target.value = phoneNumberValidation(value);
+    this.props.handleChange(e);
+  }
+
   render() {
     const { isReq, secondary,
       firstName, lastName, email, phone, errors,
@@ -21,7 +29,7 @@ class Contact extends Component {
               isReq={isReq}
               placeholder="First Name"
               value={firstName}
-              error={errors.firstName}
+              error={secondary ? errors.firstNameSecondary : errors.firstName}
               onChange={handleChange}
               onBlur={onFieldValidate}
             />
@@ -34,7 +42,7 @@ class Contact extends Component {
               isReq={isReq}
               placeholder="Last Name"
               value={lastName}
-              error={errors.lastName}
+              error={secondary ? errors.lastNameSecondary : errors.lastName}
               onChange={handleChange}
               onBlur={onFieldValidate}
             />
@@ -49,7 +57,7 @@ class Contact extends Component {
               isReq={isReq}
               placeholder="Enter Email"
               value={email}
-              error={errors.email}
+              error={secondary ? errors.emailSecondary : errors.email}
               onChange={handleChange}
               onBlur={onFieldValidate}
             />
@@ -62,8 +70,8 @@ class Contact extends Component {
               isReq={isReq}
               placeholder="Enter Contact Number"
               value={phone}
-              error={errors.phone}
-              onChange={handleChange}
+              error={secondary ? errors.phoneSecondary : errors.phone}
+              onChange={this.handlePhone}
               onBlur={onFieldValidate}
             />
           </Col>

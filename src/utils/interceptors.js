@@ -15,7 +15,6 @@ export const getApi = (url) => {
   const headers={'x-token':localStorage.token}
   return axios.get(baseUrl + url,{headers})
     .then(response => {
-      console.log("respone",response.data);
       return response.data;
     }).catch((error) => {
       return handleError(error);
