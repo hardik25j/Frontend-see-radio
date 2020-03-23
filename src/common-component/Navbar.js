@@ -15,35 +15,46 @@ class Navbar extends Component {
 	addAdvertiserHandler = () => {
 		this.props.history.push("/client-contract");
 	}
+	addCampaignHandler = () => {
+		this.props.history.push("/add-campaign");
+	}
 
 	render() {
 		const { adminiDropDownOpen } = this.state;
 		return (
 			<nav className="navbar navbar-expand-lg navbar-dark bg-primary px-lg-4 py-lg-0 ">
-				<ul className="nav-item ml-auto nav">
-					<li className="ml-4 nav-link cursor-pointer fw-600 mr-0 administrator-link nav-item">
-						<ButtonDropdown isOpen={adminiDropDownOpen} toggle={this.toggle}>
-							<DropdownToggle color="link" style={{ padding: "0px" }}>
-								<div className="nav-item" aria-haspopup="true" data-toggle="dropdown">
-									Administration
+				<ul className="nav-item nav">
+					<li className="nav-link nav-item">
+						<div className="nav-comp">
+							<div className="nav-comp-left">
+								<div>Dashboard</div>
+								<div>Campaigns</div>
+								<div>Advertisers</div>
+							</div>
+							<div>
+								<ButtonDropdown isOpen={adminiDropDownOpen} toggle={this.toggle}>
+									<DropdownToggle color="link" style={{ padding: "0px" }}>
+										<div className="nav-item" aria-haspopup="true" data-toggle="dropdown">
+											Administration
 								</div>
-							</DropdownToggle>
-							<DropdownMenu>
-								<DropdownItem className="menu-item" onClick={this.addAdvertiserHandler}>
-									<FontAwesomeIcon icon={faPlus} className="icon" />Advertiser
+									</DropdownToggle>
+									<DropdownMenu>
+										<DropdownItem className="menu-item" onClick={this.addAdvertiserHandler}>
+											<FontAwesomeIcon icon={faPlus} className="icon" />Advertiser
 								</DropdownItem>
-								<DropdownItem className="menu-item">
-									<FontAwesomeIcon icon={faPlus} className="icon" />Campaign
+										<DropdownItem className="menu-item" onClick={this.addCampaignHandler}>
+											<FontAwesomeIcon icon={faPlus} className="icon" />Campaign
 								</DropdownItem>
-								<DropdownItem className="menu-item">
-									<FontAwesomeIcon icon={faPlus} className="icon" />Salesperson
+										<DropdownItem className="menu-item">
+											<FontAwesomeIcon icon={faPlus} className="icon" />Salesperson
 								</DropdownItem>
-								<DropdownItem className="menu-item">
-									<FontAwesomeIcon icon={faList} className="icon" />Account Listing
+										<DropdownItem className="menu-item">
+											<FontAwesomeIcon icon={faList} className="icon" />Account Listing
 								</DropdownItem>
-							</DropdownMenu>
-						</ButtonDropdown>
-
+									</DropdownMenu>
+								</ButtonDropdown>
+							</div>
+						</div>
 					</li>
 				</ul>
 			</nav>

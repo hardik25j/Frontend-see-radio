@@ -6,7 +6,7 @@ import { logOut, getRoleCode } from '../utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faBell, faUser, faLock, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import Navbar from '../common-component/Navbar';
+import Navbar from './Navbar';
 import { withRouter } from "react-router-dom";
 
 class Header extends Component {

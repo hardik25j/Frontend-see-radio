@@ -48,7 +48,6 @@ export const DropDownBox = (props) => {
 				isDisabled={isDisabled}
 				options={list}
 				value={value}
-				// value={list ? list.find(item => item.value === value) : null}
 				onChange={(selectedOption) => {
 					let e = {
 						target: {

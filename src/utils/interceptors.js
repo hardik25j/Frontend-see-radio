@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 const baseUrl = "http://localhost:3005/";
+const headers = { 'x-token': localStorage.token }
 
 export const postApi = (url, obj) => {
-  return axios.post(baseUrl + url, obj)
+  return axios.post(baseUrl + url, obj, { headers })
     .then(response => {
       return response.data;
     }).catch((error) => {
@@ -12,8 +13,8 @@ export const postApi = (url, obj) => {
 }
 
 export const getApi = (url) => {
-  const headers={'x-token':localStorage.token}
-  return axios.get(baseUrl + url,{headers})
+
+  return axios.get(baseUrl + url, { headers })
     .then(response => {
       return response.data;
     }).catch((error) => {
@@ -43,7 +44,7 @@ export const handleError = error => {
   const { response } = error;
   if (response && response.data) {
     throw response.data;
-  } 
+  }
   //mangae error code like 400, 401 as per your requirement 
   throw error;
 };

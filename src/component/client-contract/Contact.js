@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
-import { InputBox } from "../common-component/InpuxBox";
-import { phoneNumberValidation } from "../common-component/Validation";
+import { InputBox } from "../../common-component/InpuxBox";
+import { phoneNumberFromatter } from "../../common-component/Validation";
 
 class Contact extends Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class Contact extends Component {
 
   handlePhone = (e) => {
     let { value } = e.target;
-    e.target.value = phoneNumberValidation(value);
+    e.target.value = phoneNumberFromatter(value);
     this.props.handleChange(e);
   }
 

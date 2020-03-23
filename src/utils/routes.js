@@ -1,5 +1,5 @@
 import DashBoard from "../component/DashBoard";
-import ClientContract from "../client-contract/ClientContract";
+import ClientContract from "../component/client-contract/ClientContract";
 
 const dashboardRoutes = [
 	{

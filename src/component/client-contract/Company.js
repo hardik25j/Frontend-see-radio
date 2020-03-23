@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
-import { InputBox, DropDownBox } from "../common-component/InpuxBox";
-import { getApi } from '../utils/interceptors';
+import { InputBox, DropDownBox } from "../../common-component/InpuxBox";
+import { getApi } from '../../utils/interceptors';
 import { toast } from 'react-toastify';
 
-class Company extends Component {
+export default class Company extends Component {
   constructor(props) {
     super(props);
     this.salesPersonList = [];
@@ -15,14 +15,14 @@ class Company extends Component {
       .then(response => {
         response.data.map((item) => {
           const { id, firstName, lastName, email } = item.Person;
-          this.salesPersonList.push({ value: id, label: firstName + " " + lastName + "- " + email })
+          this.salesPersonList = [...this.salesPersonList, { value: id, label: firstName + " " + lastName + "- " + email }];
         })
       })
       .then(
         getApi('api/wholesalepricing/getIndustries')
           .then(response => {
             response.data.map((item) => {
-              this.industryList.push({ value: item.id, label: item.name })
+              this.industryList = [...this.industryList, { value: item.id, label: item.name }];
             })
           })
       )
@@ -30,9 +30,8 @@ class Company extends Component {
   }
 
   render() {
-    const { isReq, companyName, companyWebsite, salesPerson, changeDropDown,
-      industry, errors, handleChange, onFieldValidate,
-    } = this.props;
+    const { isReq, companyName, companyWebsite, salesPerson, changeDropDown, industry, errors,
+      handleChange, onFieldValidate } = this.props;
 
     return (
       <>
@@ -71,11 +70,9 @@ class Company extends Component {
               name="salesPerson"
               isReq={isReq}
               list={this.salesPersonList}
-              placeholder="Company Name"
               value={salesPerson}
               error={errors.salesPerson}
               onChange={changeDropDown}
-              onBlur={onFieldValidate}
             />
           </Col>
           <Col>
@@ -84,11 +81,9 @@ class Company extends Component {
               name="industry"
               isReq={isReq}
               list={this.industryList}
-              placeholder="Industry Name"
               value={industry}
               error={errors.industry}
               onChange={changeDropDown}
-              onBlur={onFieldValidate}
             />
           </Col>
         </Row>
@@ -96,5 +91,3 @@ class Company extends Component {
     );
   }
 }
-
-export default Company;

@@ -1,5 +1,7 @@
-export const checkValidation = (errors, data, notReq) => {
+export const checkValidation = (errors, data, notReq = null) => {
   const finalErrors = {};
+  if (!notReq)
+    return finalErrors;
   Object.keys(data).map((key) => {
     if (!notReq.includes(key) && data[key] === '' || data[key] === {}) {
       finalErrors[key] = `Please enter ${key}.`
@@ -38,7 +40,27 @@ export const getRegExp = (name) => {
   }
 }
 
-export const phoneNumberValidation = (value) => {
+export const setterErrorMsg = (e) => {
+  const { name, value, title, attributes } = e.target;
+  const isReq = attributes.getNamedItem("data-attribute").value;
+
+  if (!value && isReq === 'true')
+    return `Please Enter ${(title)}.`;
+  else
+    switch (name) {
+      case 'password':
+        if (value.length < 6)
+          return `Password must be at least 6 characters long.`;
+      case 'views':
+        if (value < 2500)
+          return 'Enter Views above 2500.'
+      default:
+        if (value && getRegExp(name) && !getRegExp(name).test(value))
+          return `Please Enter valid ${(title)}.`
+    }
+}
+
+export const phoneNumberFromatter = (value) => {
   let input = value.replace(/\D/g, '');
   input = input.substring(0, 10);
   var size = input.length;

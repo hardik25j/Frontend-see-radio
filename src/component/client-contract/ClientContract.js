@@ -3,9 +3,9 @@ import { Row, Col, Card, CardBody } from "reactstrap";
 import Contact from "./Contact";
 import Address from "./Address";
 import Company from "./Company";
-import { InputBox } from "../common-component/InpuxBox";
-import { checkValidation, getRegExp } from "../common-component/Validation";
-import { postApi } from "../utils/interceptors";
+import { InputBox } from "../../common-component/InpuxBox";
+import { checkValidation, getRegExp } from "../../common-component/Validation";
+import { postApi } from "../../utils/interceptors";
 import { toast } from 'react-toastify';
 
 export default class ClientContract extends Component {
@@ -13,6 +13,7 @@ export default class ClientContract extends Component {
 		super(props);
 		this.state = {
 			businessAddress: '',
+			addressType: '',
 			form: {
 				companyName: '',
 				companyWebsite: '',
@@ -76,8 +77,9 @@ export default class ClientContract extends Component {
 
 	checkHandler = (e) => {
 		const { checked } = e.target;
-		const { form } = this.state;
+		let { form, addressType } = this.state;
 		if (checked) {
+			addressType = 'business';
 			form.address1Secondary = form.address1;
 			form.address2Secondary = form.address2;
 			form.citySecondary = form.city;
@@ -86,6 +88,7 @@ export default class ClientContract extends Component {
 			form.postalSecondary = form.postal;
 		}
 		else {
+			addressType = 'billing';
 			form.address1Secondary = '';
 			form.address2Secondary = '';
 			form.citySecondary = '';
@@ -93,7 +96,7 @@ export default class ClientContract extends Component {
 			form.stateProvinceSecondary = '';
 			form.postalSecondary = '';
 		}
-		this.setState({ form, businessAddress: checked });
+		this.setState({ form, addressType, businessAddress: checked });
 	}
 
 	onFieldValidate = (e) => {
@@ -113,27 +116,6 @@ export default class ClientContract extends Component {
 		this.setState({ errors });
 	};
 
-
-	onSubmitForm = () => {
-		const { form, errors } = this.state;
-		const notReq = [
-			'firstNameSecondary', 'lastNameSecondary', 'emailSecondary',
-			'phoneSecondary', 'address2', 'address2Secondary'
-		];
-
-		const validationError = checkValidation(errors, form, notReq);
-		if (Object.keys(validationError).length !== 0) {
-			this.setState({ errors: validationError });
-		} else {
-			const objData = this.setterData();
-			postApi('api/company/client', objData)
-				.then(response => {
-					toast.success("form submitted");
-				})
-				.catch(response => toast.error(response.errorMessage))
-		}
-	};
-
 	cleanForm = () => {
 		const { form } = this.state;
 		Object.keys(form).map((key) => {
@@ -142,8 +124,28 @@ export default class ClientContract extends Component {
 		this.setState({ errors: {}, form });
 	};
 
+	onSubmitForm = () => {
+		const { form, errors } = this.state;
+		const notReq = [
+			'firstNameSecondary', 'lastNameSecondary', 'emailSecondary',
+			'phoneSecondary', 'address2', 'address2Secondary'
+		];
+		const validationError = checkValidation(errors, form, notReq);
+
+		if (Object.keys(validationError).length !== 0)
+			this.setState({ errors: validationError });
+		else {
+			const objData = this.setterData();
+			postApi('api/company/client', objData)
+				.then(() => {
+					toast.success("form submitted");
+				})
+				.catch(response => toast.error(response.errorMessage))
+		}
+	};
+
 	setterData = () => {
-		const { form, businessAddress } = this.state;
+		const { form, businessAddress, addressType } = this.state;
 		const { companyName, companyWebsite, salesPerson, industry, firstName, lastName, email, phone,
 			firstNameSecondary, lastNameSecondary, emailSecondary, phoneSecondary, address1, address2,
 			city, country, stateProvince, postal, address1Secondary, address2Secondary, citySecondary,
@@ -153,7 +155,7 @@ export default class ClientContract extends Component {
 			companyWebsite: companyWebsite,
 			personID: "9754b9d4-1832-44e0-b186-08a431033c45",
 			sosID: salesPerson.value,
-			companyType: 'client',
+			companyType: 'Client',
 			firstName: firstName,
 			lastName: lastName,
 			email: email,
@@ -172,7 +174,7 @@ export default class ClientContract extends Component {
 					postal: postal,
 					country: country.value,
 					state: stateProvince.value,
-					provinceID: 2//stateProvince,//ID
+					provinceID: stateProvince.id
 				},
 				billing: {
 					address: address1Secondary,
@@ -181,16 +183,15 @@ export default class ClientContract extends Component {
 					postal: postalSecondary,
 					country: countrySecondary.value,
 					state: stateProvinceSecondary.value,
-					provinceID: 3//billingProvinceID
+					provinceID: stateProvinceSecondary.id
 				}
 			},
-			addressType: 'billing',// addressType,//'business','billing'
-			useSame: businessAddress,//'true','false'
-			roleCode: 'client',//roleCode,//'client'
-			createdByPerson: localStorage.id,
+			addressType: addressType,
+			useSame: businessAddress,
+			roleCode: 'CLIENT',
+			createdByPerson: localStorage.userId,
 		}
-		console.log(obj);
-		// return obj;
+		return obj;
 	}
 
 	render() {
@@ -219,7 +220,6 @@ export default class ClientContract extends Component {
 									changeDropDown={this.changeDropDown}
 									onFieldValidate={this.onFieldValidate}
 								/>
-
 								<div className="form-title">Primary Contact</div>
 								<Contact
 									isReq={true}
@@ -231,7 +231,6 @@ export default class ClientContract extends Component {
 									handleChange={this.handleChange}
 									onFieldValidate={this.onFieldValidate}
 								/>
-
 								<div className="form-title">Secondary Contact (Billing - Optional)</div>
 								<Contact
 									isReq={false}
@@ -244,7 +243,6 @@ export default class ClientContract extends Component {
 									handleChange={this.handleChange}
 									onFieldValidate={this.onFieldValidate}
 								/>
-
 								<div className="form-title">Business Address</div>
 								<Address
 									isDisabled={false}
@@ -260,7 +258,6 @@ export default class ClientContract extends Component {
 									handleChange={this.handleChange}
 									onFieldValidate={this.onFieldValidate}
 								/>
-
 								<div className="form-title">Billing Address
 									<input type="checkbox" className="checkbox" name="businessAddress" onChange={this.checkHandler} />
 									Same as Business Address

@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import { logIn, isLogin } from '../utils';
 import { InputBox } from '../common-component/InpuxBox';
 import { postApi } from '../utils/interceptors';
+import { checkValidation, getRegExp } from "../common-component/Validation";
 import logo from '../assets/image/logo.png';
 
 export default class Login extends Component {
@@ -25,26 +26,11 @@ export default class Login extends Component {
       errors: {}
     }
   }
-
   componentDidMount() {
     if (isLogin()) {
       this.props.history.push("/dashboard");
     }
   }
-
-  getRegExp = name => {
-    let regx = null;
-
-    switch (name) {
-      case "email":
-        regx = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g;
-        break;
-      default:
-        break;
-    }
-    return regx;
-  };
-
   handleChange = (e) => {
     const { form } = this.state;
     const { name, value } = e.target;
@@ -54,7 +40,6 @@ export default class Login extends Component {
       }
     });
   };
-
   onFieldValidate = (e) => {
     const { name, value } = e.target;
     const { errors } = this.state;
@@ -62,7 +47,7 @@ export default class Login extends Component {
     let errorMsg = "";
     if (!value) {
       errorMsg = `Please Enter ${(name)}.`;
-    } else if (name === 'email' && value && !this.getRegExp('email').test(value)) {
+    } else if (name === 'email' && value && !getRegExp('email').test(value)) {
       errorMsg = `Please Enter valid ${(name)}.`;
     } else if (name === "password" && value.length < 6) {
       errorMsg = `Password must be at least 6 characters long.`;
@@ -70,22 +55,6 @@ export default class Login extends Component {
     errors[name] = errorMsg;
     this.setState({ errors });
   };
-
-  checkValidation = (errors, data) => {
-    const finalErrors = {};
-    Object.keys(data).map((key) => {
-      if (data[key] === '' || data[key] === {}) {
-        finalErrors[key] = `Please enter ${key}.`
-      }
-    });
-    Object.keys(errors).map((key) => {
-      if (errors[key] !== "") {
-        finalErrors[key] = errors[key]
-      }
-    });
-    return finalErrors;
-  };
-
   onSubmitForm = () => {
     const { form, errors } = this.state;
     const { email, password } = form;
@@ -94,46 +63,33 @@ export default class Login extends Component {
       email,
       password
     };
-    const validationError = this.checkValidation(errors, data);
-    if (Object.keys(validationError).length !== 0) {
+    const validationError = checkValidation(errors, data);
+    if (Object.keys(validationError).length !== 0)
       this.setState({ errors: validationError });
-    } else {
+    else {
       let obj = this.state.form;
       postApi("pub/login", obj)
         .then(response => {
           const { personData, token } = response.data;
+          const { passwordStatus, status, firstName, lastName, company, id, roleCode } = personData
+          const { companyName, companyType } = company;
           clientStorage = {
             token,
-            userName: personData.firstName + " " + personData.lastName,
-            userId: personData.id,
-            roleCode: personData.roleCode,
-            email: personData.email
+            passwordStatus,
+            companyName,
+            companyType,
+            companyId: company.id,
+            status,
+            userName: firstName + " " + lastName,
+            userId: id,
+            roleCode,
+            email
           }
           logIn(clientStorage);
           this.props.history.push('/dashboard');
           toast.success("successful");
         })
         .catch(response => toast.error(response.errorMessage))
-
-      // axios.post(`http://localhost:3005/pub/login`, obj)
-      //   .then(response => {
-      //     const { personData, token } = response.data.data;
-      //     clientStorage = {
-      //       token,
-      //       userName:personData.firstName+" "+personData.lastName,
-      //       userId: personData.id,
-      //       roleCode: personData.roleCode,
-      //       email: personData.email 
-      //     }
-      //     logIn(clientStorage);
-      //     this.props.history.push('/dashboard');
-      //     toast.success("successful");
-      //   })
-      //   .catch((err) => {
-      //     const { response } = err;
-      //     if (response && response.data)
-      //       toast.error(response.data.errorMessage);
-      //   });
     }
   };
 

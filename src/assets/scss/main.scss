@@ -42,8 +42,8 @@
 .button {
   height: 40px;
   width: 150px;
-  margin-top:20px !important;
-  margin-left:10px !important;
+  margin-top: 20px !important;
+  margin-left: 10px !important;
   margin-right: 100px !important;
   box-shadow: 1px 1px gray;
 }
@@ -54,4 +54,28 @@
 }
 .checkbox {
   margin: 0px 10px 0px 10px;
+}
+.drop-area {
+  margin-top: 15px;
+  .dropzone {
+    height: 50px;
+    width: 600px;
+    border: dotted 2px #3a85f5;
+    .placeholder {
+      text-align: center;
+      font-size: 15px;
+      color: gray;
+    }
+  }
+}
+.option {
+  margin-top: 30px;
+}
+.nav-comp {
+  display: flex;
+  flex-direction: row;
+  .nav-comp-left {
+    display: flex;
+    flex-direction: row;
+  }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
-import { InputBox, DropDownBox } from "../common-component/InpuxBox";
-import { getApi } from '../utils/interceptors';
+import { InputBox, DropDownBox } from "../../common-component/InpuxBox";
+import { getApi } from '../../utils/interceptors';
 import { toast } from 'react-toastify';
 
 class Address extends Component {
@@ -21,13 +21,12 @@ class Address extends Component {
     const { value } = e.target;
     this.stateProvinceList = [];
     this.setState({ country: value });
-
     value
       ? getApi(`pub/states/${e.target.value.value}`)
         .then(response => {
           response.data.map((item) => {
-            const { name, code } = item;
-            this.stateProvinceList = [...this.stateProvinceList, { value: code, label: name }]
+            const { name, code, id } = item;
+            this.stateProvinceList = [...this.stateProvinceList, { value: code, label: name, id }]
           })
           this.props.changeDropDown(e);
         })
@@ -97,7 +96,6 @@ class Address extends Component {
               value={country}
               error={isDisabled ? null : secondary ? errors.countrySecondary : errors.country}
               onChange={this.handleCountry}
-              onBlur={onFieldValidate}
             />
           </Col>
         </Row>
@@ -112,7 +110,7 @@ class Address extends Component {
               value={stateProvince}
               error={isDisabled ? null : secondary ? errors.stateProvinceSecondary : errors.stateProvince}
               onChange={changeDropDown}
-              onBlur={onFieldValidate}
+
             />
           </Col>
           <Col>
