@@ -4,15 +4,18 @@
 .error {
   color: red;
 }
+
 .m {
   margin: 10px;
 }
+
 .nav-item {
   color: #ffffff;
   font-weight: bold;
   text-decoration: none;
   margin-right: 15px;
 }
+
 .dropdown-menu {
   .menu-item {
     font-family: Arial;
@@ -23,6 +26,7 @@
     margin-right: 5px;
   }
 }
+
 .title-header {
   color: #3a85f5;
   font-weight: bold;
@@ -30,6 +34,7 @@
   text-decoration: none;
   margin-right: 15px;
 }
+
 .form-title {
   background-color: #dce6f8;
   font-weight: bold;
@@ -39,6 +44,7 @@
   padding: 5px;
   margin: 10px 0px 10px 0px;
 }
+
 .button {
   height: 40px;
   width: 150px;
@@ -47,14 +53,17 @@
   margin-right: 100px !important;
   box-shadow: 1px 1px gray;
 }
+
 .sumbmit-buttons {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
 }
+
 .checkbox {
   margin: 0px 10px 0px 10px;
 }
+
 .drop-area {
   margin-top: 15px;
   .dropzone {
@@ -68,14 +77,54 @@
     }
   }
 }
+
 .option {
   margin-top: 30px;
 }
-.nav-comp {
-  display: flex;
-  flex-direction: row;
-  .nav-comp-left {
+
+.bg-see-radio {
+  background-color: #0fa1dd !important;
+}
+
+.nav-options {
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 0px 24px;
+  cursor: hand;
+}
+
+.nav-link:hover {
+  background-color: #07678f;
+}
+
+.campaign-container {
+  margin: 30px;
+  .filter-button {
+    background-color: #444343;
+    color: #ffffff;
+    border-radius: 5px;
+    width: 150px;
+  }
+  .filter-title {
     display: flex;
     flex-direction: row;
+    margin: 30px;
+    .title {
+      color: black;
+      font-size: 25px;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 300px;
+    }
   }
+}
+
+.filter-sidebar {
+  position: absolute;
+  height: 600px;
+  width: 300px;
+  background-color: black;
+  z-index: 2;
+  margin-top: 0px;
 }

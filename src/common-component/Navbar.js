@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faList } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faList, faTachometerAlt, faFire, faAd, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 class Navbar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			adminiDropDownOpen: false,
+			adminDropDownOpen: false,
+			campaignsDropDownOpen: false,
 		}
 	}
-	toggle = () => this.setState({ adminiDropDownOpen: !this.state.adminiDropDownOpen });
+	adminToggle = () => this.setState({ adminDropDownOpen: !this.state.adminDropDownOpen });
 	addAdvertiserHandler = () => {
 		this.props.history.push("/client-contract");
 	}
@@ -19,23 +20,47 @@ class Navbar extends Component {
 		this.props.history.push("/add-campaign");
 	}
 
+	campaignToggle = () => this.setState({ campaignsDropDownOpen: !this.state.campaignsDropDownOpen });
+	activeCampains = () => {
+		this.props.history.push("/campaign-table");
+	}
 	render() {
-		const { adminiDropDownOpen } = this.state;
+		const { adminDropDownOpen, campaignsDropDownOpen } = this.state;
 		return (
-			<nav className="navbar navbar-expand-lg navbar-dark bg-primary px-lg-4 py-lg-0 ">
-				<ul className="nav-item nav">
-					<li className="nav-link nav-item">
-						<div className="nav-comp">
-							<div className="nav-comp-left">
-								<div>Dashboard</div>
-								<div>Campaigns</div>
-								<div>Advertisers</div>
-							</div>
-							<div>
-								<ButtonDropdown isOpen={adminiDropDownOpen} toggle={this.toggle}>
-									<DropdownToggle color="link" style={{ padding: "0px" }}>
+			<>
+				<nav className="navbar navbar-expand-lg bg-see-radio px-lg-4 py-lg-0 sticky-top">
+					<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span className="navbar-toggler-icon"></span>
+					</button>
+					<div className="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul className="navbar-nav nav col-lg-10">
+							<li className="nav-link nav-item">
+								<span className="nav-options"><FontAwesomeIcon icon={faTachometerAlt} className="mr-1" /> Dashboard</span>
+							</li>
+							<li >
+								<ButtonDropdown isOpen={campaignsDropDownOpen} toggle={this.campaignToggle}>
+									<DropdownToggle color="link" className="nav-link nav-item ml-auto">
 										<div className="nav-item" aria-haspopup="true" data-toggle="dropdown">
-											Administration
+											<FontAwesomeIcon icon={faFire} className="mr-1" />Campaign
+								</div>
+									</DropdownToggle>
+									<DropdownMenu>
+										<DropdownItem className="menu-item" onClick={this.activeCampains}>Active Campaigns/Orders</DropdownItem>
+										<DropdownItem className="menu-item" onClick={this.addAdvertiserHandler}>Campaigns in Market</DropdownItem>
+										<DropdownItem className="menu-item" onClick={this.addAdvertiserHandler}>Completed Campaigns</DropdownItem>
+									</DropdownMenu>
+								</ButtonDropdown>
+							</li>
+							<li className="nav-link nav-item">
+								<span className="nav-options"><FontAwesomeIcon icon={faAd} className="mr-1" /> Advertiser </span>
+							</li>
+						</ul>
+						<ul className="navbar-nav nav ml-auto">
+							<li >
+								<ButtonDropdown isOpen={adminDropDownOpen} toggle={this.adminToggle}>
+									<DropdownToggle color="link" className="nav-link nav-item ml-auto">
+										<div className="nav-item" aria-haspopup="true" data-toggle="dropdown">
+											<FontAwesomeIcon icon={faUserTie} className="mr-1" />Administration
 								</div>
 									</DropdownToggle>
 									<DropdownMenu>
@@ -53,52 +78,14 @@ class Navbar extends Component {
 								</DropdownItem>
 									</DropdownMenu>
 								</ButtonDropdown>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</nav>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</>
 		);
 	}
 }
 
 export default withRouter(Navbar);
 
-{/* <div
-	tabindex="-1"
-	role="menu"
-	aria-hidden="true"
-	class="dropdown-menu shadow border-0 fs-14 dropdown-menu">
-	<button type="button" tabindex="0" role="menuitem" class="p-0 dropdown-item">
-		<li id="Header-add-advertiser" class="link text-black  nav-item">
-			<a class="text-black d-block px-3 py-1" href="/client-contract">
-				<i class="fa fa-plus fs-20 dropdown-icon mr-2 text-primary"></i>
-													 Advertiser
-											</a>
-		</li>
-	</button>
-	<button type="button" tabindex="0" role="menuitem" class="p-0 dropdown-item">
-		<li id="Header-add-campaign" class="link text-black  nav-item">
-			<a class="text-black d-block px-3 py-1" href="/add-campaign">
-				<i class="fa fa-plus fs-20 dropdown-icon mr-2 text-primary"></i>
-																 Campaign
-											</a>
-		</li>
-	</button>
-	<button type="button" tabindex="0" role="menuitem" class="p-0 dropdown-item">
-		<li id="Header-add-sos" class="link text-black  nav-item">
-			<a class="text-black d-block px-3 py-1" href="/add-salesperson">
-				<i class="fa fa-plus fs-20 dropdown-icon mr-2 text-primary"></i>
-																			 Salesperson
-											</a>
-		</li>
-	</button>
-	<button type="button" tabindex="0" role="menuitem" class="p-0 dropdown-item">
-		<li id="Header-account" class="nav-item">
-			<a class="text-black d-flex align-items-center px-3 py-2" href="/account-listing">
-				<i class="fa fa-stream fs-18 dropdown-icon mr-2"></i>
-												Account Listing
-												</a>
-		</li>
-	</button>
-</div> */}

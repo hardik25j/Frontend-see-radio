@@ -15,9 +15,12 @@ import './assets/scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-toastify/dist/ReactToastify.css';
 import "react-datepicker/dist/react-datepicker.css";
+import 'react-table/react-table.css'
+
 import ClientContract from './component/client-contract/ClientContract';
 import AddCampaign from './component/add-campaign/AddCampaign';
 import UploadFiles from './component/upload-files/UploadFiles';
+import CampaignTable from './component/CampaignTable';
 
 ReactDOM.render(
 	<Router>
@@ -30,6 +33,7 @@ ReactDOM.render(
 				<PrivateRoute path='/client-contract' component={ClientContract} />
 				<PrivateRoute path='/add-campaign' component={AddCampaign} />
 				<PrivateRoute path='/upload-files' component={UploadFiles} />
+				<PrivateRoute path='/campaign-table' component={CampaignTable} />
 			</Switch>
 		</div>
 	</Router>
