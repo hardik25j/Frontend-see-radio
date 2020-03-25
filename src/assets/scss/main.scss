@@ -9,6 +9,13 @@
   margin: 10px;
 }
 
+.p {
+  padding: 10px;
+}
+.w {
+  width: 220px;
+}
+
 .nav-item {
   color: #ffffff;
   font-weight: bold;
@@ -124,7 +131,29 @@
   position: absolute;
   height: 600px;
   width: 300px;
-  background-color: black;
+  background-color: #323f48;
   z-index: 2;
   margin-top: 0px;
+  color: white;
+  .filter-header {
+    width: 100%;
+    height: 12%;
+    background-color: #323f48;
+    font-size: 20px;
+    padding: 30px;
+  }
+  .filter-body {
+    width: 100%;
+    height: 76%;
+    padding: 30px;
+    overflow-y: scroll;
+    background-color: #323f48;
+  }
+  .filter-footer {
+    width: 100%;
+    bottom: 0px;
+    padding-left: 30px;
+    position: absolute;
+    background-color: #323f48;
+  }
 }

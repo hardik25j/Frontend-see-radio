@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactTable from 'react-table'
 import { postApi } from "../utils/interceptors";
 import { toast } from "react-toastify";
+import FilterBar from "./FilterBar";
 
 export default class CampaignTable extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ export default class CampaignTable extends Component {
       accessor: 'title',
       Cell: row => <div>
         <span >
-          {row.row.title}<br />{}
+          {row.original.title}<br />{row.original.description}
         </span>
       </div>
     }, {
@@ -74,9 +75,11 @@ export default class CampaignTable extends Component {
 
     return (
       <>
-        {filterBar && <div className="filter-sidebar">
-          <button className="filter-container" onClick={this.handleFilter}>Search</button>
-        </div>}
+        {filterBar &&
+          <FilterBar
+            handleFilter={this.handleFilter}
+          />
+        }
         <div className="campaign-container">
           <div className="filter-title">
             <button className="filter-button" onClick={this.handleFilter}>Search Filters</button>

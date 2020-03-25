@@ -34,7 +34,7 @@ export const InputBox = (props) => {
 }
 
 export const DropDownBox = (props) => {
-	const { isDisabled, list, label, name, isReq, value, onChange, onBlur, error } = props;
+	const { isDisabled, list, label, name, isReq, value, onChange, onBlur, error, className } = props;
 	return (
 		<FormGroup>
 			<Label className="font-weight-bold">
@@ -42,6 +42,7 @@ export const DropDownBox = (props) => {
 				{isReq && <span style={{ color: "red" }}> * </span>}
 			</Label><br />
 			<ReactSelect
+				className={className}
 				name={name}
 				title={label}
 				isClearable={true}
