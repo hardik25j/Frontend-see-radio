@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Row, Col, Card, CardBody } from "reactstrap";
 import Campaign from "./Campaign";
 import Distribution from "./Distribution";
-import { InputBox } from "../../common-component/InpuxBox";
-import { checkValidation, setterErrorMsg } from "../../common-component/Validation";
+import { InputBox } from "../common-component/InpuxBox";
+import { checkValidation, setterErrorMsg } from "../common-component/Validation";
 import { postApi } from "../../utils/interceptors";
 import { toast } from "react-toastify";
 

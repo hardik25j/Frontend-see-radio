@@ -10,9 +10,9 @@ import {
 import { toast } from 'react-toastify';
 
 import { logIn, isLogin } from '../utils';
-import { InputBox } from '../common-component/InpuxBox';
+import { InputBox } from './common-component/InpuxBox';
 import { postApi } from '../utils/interceptors';
-import { checkValidation, getRegExp } from "../common-component/Validation";
+import { checkValidation, getRegExp } from "./common-component/Validation";
 import logo from '../assets/image/logo.png';
 
 export default class Login extends Component {

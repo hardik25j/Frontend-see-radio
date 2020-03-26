@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
-import { DropDownBox, InputBox } from "../../common-component/InpuxBox";
-import DatePickerBox from "../../common-component/DatePickerBox";
+import DatePickerBox from "../common-component/DatePickerBox";
 import { getApi } from "../../utils/interceptors";
 import { toast } from "react-toastify";
+import { DropDownBox, InputBox } from "../common-component/InpuxBox";
 
 export default class Distribution extends Component {
   constructor(props) {

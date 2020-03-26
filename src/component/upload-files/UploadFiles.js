@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { CardBody, Card, Col, Row } from "reactstrap";
-import { InputBox } from "../../common-component/InpuxBox";
-import UploadBox from "../../common-component/UploadBox";
+import { InputBox } from "../common-component/InpuxBox";
+import UploadBox from "../common-component/UploadBox";
 import { postApi } from "../../utils/interceptors";
 import { toast } from "react-toastify";
 

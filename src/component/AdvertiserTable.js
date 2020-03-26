@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import ReactTable from 'react-table'
-import { postApi } from "../utils/interceptors";
+import { postApi, getApi } from "../utils/interceptors";
 import { toast } from "react-toastify";
 import FilterCampaign from "./FilterCampaign";
+import FilterAdvertiser from "./FilterAdvertiser";
 
-export default class CampaignTable extends Component {
+export default class AdvertiserTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,71 +13,58 @@ export default class CampaignTable extends Component {
       filterBar: false
     }
   }
+
   componentDidMount() {
     let sendData = {
-      limit: 10,
       salesOrgCompanyID: localStorage.companyId
     }
-    postApi("api/campaign/getAllCampaigns", sendData)
+    postApi("api/company/getClientReports", sendData)
       .then(response => {
         this.setState({
-          data: response.data.rows
+          data: response.data
         })
-        console.log(response.data.rows);
+        console.log(this.state.data);
       })
       .catch((response) => {
         response && toast.error(response.errorMessage);
       });
   }
+
   handleFilter = () => {
     this.setState({ filterBar: !this.state.filterBar });
   }
+
   render() {
     const { data, filterBar } = this.state;
     const columns = [{
       Header: 'ID',
-      accessor: 'clientCampaignNumber'
+      accessor: 'clientCompany.readableID'
     }, {
-      Header: 'Title/Details',
-      accessor: 'title',
-      Cell: row => <div>
-        <span >
-          {row.original.title}<br />{row.original.description}
-        </span>
-      </div>
-    }, {
-      Header: 'Advertiser',
+      Header: 'Name',
       accessor: 'clientCompany.companyName'
     }, {
-      Header: 'Action Required By',
-      accessor: 'statusWithPerson',
+      Header: 'Salesperson',
+      accessor: 'clientCompany',
       Cell: row => <div>
         <span >
-          {row.row.statusWithPerson.firstName} {row.row.statusWithPerson.lastName}<br />
-          ({row.row.statusWithPerson.roleCode})
+          {row.row.clientCompany.SOS.firstName} {row.row.clientCompany.SOS.lastName}<br />
         </span>
       </div>
     }, {
-      Header: 'Next Action Due By',
-      accessor: 'statusDueDate',
-      Cell: row => <div>
-        <span >
-          {row.row.statusDueDate} <br />
-          {Date() > row.row.statusDueDate ? '(Overdue)' : null}
-        </span>
-      </div>
+      Header: 'Last Campaign Added',
+      accessor: 'clientCompany.campaignLastAddedOn'
     }, {
-      Header: 'Start',
-      accessor: 'startDate'
+      Header: 'Active Campaigns/Orders',
+      accessor: 'clientCompany.activeCampaignsCount'
     }, {
-      Header: 'Finish',
-      accessor: 'endDate'
+      Header: 'Campaign to Date ',
+      accessor: 'clientCompany.campaignsToDate'
     }]
 
     return (
       <>
         {filterBar &&
-          <FilterCampaign
+          <FilterAdvertiser
             handleFilter={this.handleFilter}
           />
         }

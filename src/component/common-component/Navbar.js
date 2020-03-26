@@ -24,6 +24,12 @@ class Navbar extends Component {
 	activeCampains = () => {
 		this.props.history.push("/campaign-table");
 	}
+	campainMarket = () => {
+		this.props.history.push("/campaigns-in-market");
+	}
+	completedCampaign = () => {
+		this.props.history.push("/completed-campaign");
+	}
 	render() {
 		const { adminDropDownOpen, campaignsDropDownOpen } = this.state;
 		return (
@@ -46,13 +52,13 @@ class Navbar extends Component {
 									</DropdownToggle>
 									<DropdownMenu>
 										<DropdownItem className="menu-item" onClick={this.activeCampains}>Active Campaigns/Orders</DropdownItem>
-										<DropdownItem className="menu-item" onClick={this.addAdvertiserHandler}>Campaigns in Market</DropdownItem>
-										<DropdownItem className="menu-item" onClick={this.addAdvertiserHandler}>Completed Campaigns</DropdownItem>
+										<DropdownItem className="menu-item" onClick={this.campainMarket}>Campaigns in Market</DropdownItem>
+										<DropdownItem className="menu-item" onClick={this.completedCampaign}>Completed Campaigns</DropdownItem>
 									</DropdownMenu>
 								</ButtonDropdown>
 							</li>
 							<li className="nav-link nav-item">
-								<span className="nav-options"><FontAwesomeIcon icon={faAd} className="mr-1" /> Advertiser </span>
+								<Link style={{ color: "white" }} to="/client-report"><FontAwesomeIcon icon={faAd} className="mr-1" /> Advertiser</Link>
 							</li>
 						</ul>
 						<ul className="navbar-nav nav ml-auto">
@@ -61,21 +67,21 @@ class Navbar extends Component {
 									<DropdownToggle color="link" className="nav-link nav-item ml-auto">
 										<div className="nav-item" aria-haspopup="true" data-toggle="dropdown">
 											<FontAwesomeIcon icon={faUserTie} className="mr-1" />Administration
-								</div>
+										</div>
 									</DropdownToggle>
 									<DropdownMenu>
 										<DropdownItem className="menu-item" onClick={this.addAdvertiserHandler}>
 											<FontAwesomeIcon icon={faPlus} className="icon" />Advertiser
-								</DropdownItem>
+										</DropdownItem>
 										<DropdownItem className="menu-item" onClick={this.addCampaignHandler}>
 											<FontAwesomeIcon icon={faPlus} className="icon" />Campaign
-								</DropdownItem>
+										</DropdownItem>
 										<DropdownItem className="menu-item">
 											<FontAwesomeIcon icon={faPlus} className="icon" />Salesperson
-								</DropdownItem>
+										</DropdownItem>
 										<DropdownItem className="menu-item">
 											<FontAwesomeIcon icon={faList} className="icon" />Account Listing
-								</DropdownItem>
+										</DropdownItem>
 									</DropdownMenu>
 								</ButtonDropdown>
 							</li>

@@ -3,8 +3,8 @@ import { Row, Col, Card, CardBody } from "reactstrap";
 import Contact from "./Contact";
 import Address from "./Address";
 import Company from "./Company";
-import { InputBox } from "../../common-component/InpuxBox";
-import { checkValidation, getRegExp } from "../../common-component/Validation";
+import { InputBox } from "../common-component/InpuxBox";
+import { checkValidation, getRegExp } from "../common-component/Validation";
 import { postApi } from "../../utils/interceptors";
 import { toast } from 'react-toastify';
 

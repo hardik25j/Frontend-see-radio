@@ -7,7 +7,7 @@ import { ToastContainer } from 'react-toastify';
 
 import Login from './component/Login';
 import DashBoard from './component/DashBoard';
-import PrivateRoute from './common-component/PrivateRoute';
+import PrivateRoute from './component/common-component/PrivateRoute';
 import App from './App';
 
 import './index.css';
@@ -21,6 +21,8 @@ import ClientContract from './component/client-contract/ClientContract';
 import AddCampaign from './component/add-campaign/AddCampaign';
 import UploadFiles from './component/upload-files/UploadFiles';
 import CampaignTable from './component/CampaignTable';
+import AdvertiserTable from './component/AdvertiserTable';
+import CampaignMarketTable from './component/CampaignMarketTable';
 
 ReactDOM.render(
 	<Router>
@@ -34,6 +36,8 @@ ReactDOM.render(
 				<PrivateRoute path='/add-campaign' component={AddCampaign} />
 				<PrivateRoute path='/upload-files' component={UploadFiles} />
 				<PrivateRoute path='/campaign-table' component={CampaignTable} />
+				<PrivateRoute path='/client-report' component={AdvertiserTable} />
+				<PrivateRoute path='/campaigns-in-market' component={CampaignMarketTable} />
 			</Switch>
 		</div>
 	</Router>

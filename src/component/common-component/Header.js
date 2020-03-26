@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import logo from '../assets/image/logo.png';
-import { logOut, getRoleCode } from '../utils';
+import logo from '../../assets/image/logo.png';
+import { logOut, getRoleCode } from '../../utils';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faBell, faUser, faLock, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
