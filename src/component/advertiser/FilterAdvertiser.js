@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Row } from "reactstrap";
-import DatePickerBox from './common-component/DatePickerBox'
-import { InputBox, DropDownBox } from "./common-component/InpuxBox";
-import { FilterHeader, FilterFooter } from "./common-component/FilterComp";
+import DatePickerBox from '../common-component/DatePickerBox'
+import { InputBox, DropDownBox } from "../common-component/InpuxBox";
+import { FilterHeader, FilterFooter } from "../common-component/FilterComp";
 
 export default class FilterAdvertiser extends Component {
   constructor(props) {

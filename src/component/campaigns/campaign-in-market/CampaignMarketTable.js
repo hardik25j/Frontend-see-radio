@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import ReactTable from 'react-table'
-import { postApi, getApi } from "../utils/interceptors";
+import { postApi, getApi } from "../../../utils/interceptors";
 import { toast } from "react-toastify";
-import FilterAdvertiser from "./FilterAdvertiser";
+import FilterCampMarket from "./FilterCampMarket";
 
 export default class CampaignMarketTable extends Component {
   constructor(props) {
@@ -61,14 +61,14 @@ export default class CampaignMarketTable extends Component {
     return (
       <>
         {filterBar &&
-          <FilterAdvertiser
+          <FilterCampMarket
             handleFilter={this.handleFilter}
           />
         }
         <div className="campaign-container">
           <div className="filter-title">
             <button className="filter-button" onClick={this.handleFilter}>Search Filters</button>
-            <div className="title">Active Campaigns/Orders</div>
+            <div className="title">Campaigns In Market</div>
           </div>
           <ReactTable
             data={data}

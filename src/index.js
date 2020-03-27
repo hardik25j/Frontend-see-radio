@@ -20,9 +20,10 @@ import 'react-table/react-table.css'
 import ClientContract from './component/client-contract/ClientContract';
 import AddCampaign from './component/add-campaign/AddCampaign';
 import UploadFiles from './component/upload-files/UploadFiles';
-import CampaignTable from './component/CampaignTable';
-import AdvertiserTable from './component/AdvertiserTable';
-import CampaignMarketTable from './component/CampaignMarketTable';
+import CampaignTable from './component/campaigns/active-campaign-table/CampaignTable';
+import AdvertiserTable from './component/advertiser/AdvertiserTable';
+import CampaignMarketTable from './component/campaigns/campaign-in-market/CampaignMarketTable';
+import CompltedCampaignTable from './component/campaigns/completed-camp/CompletedCampaignTable';
 
 ReactDOM.render(
 	<Router>
@@ -38,6 +39,7 @@ ReactDOM.render(
 				<PrivateRoute path='/campaign-table' component={CampaignTable} />
 				<PrivateRoute path='/client-report' component={AdvertiserTable} />
 				<PrivateRoute path='/campaigns-in-market' component={CampaignMarketTable} />
+				<PrivateRoute path='/completed-campaign' component={CompltedCampaignTable} />
 			</Switch>
 		</div>
 	</Router>

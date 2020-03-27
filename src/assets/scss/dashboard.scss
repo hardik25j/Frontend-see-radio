@@ -19,7 +19,7 @@
       flex-direction: column;
       align-items: center;
       margin: 10px;
-    
+
       .testCircle {
         width: 50px;
         height: 50px;
@@ -28,8 +28,82 @@
         padding: 15px;
       }
     }
-    .details {        
-        font-size: 15px;
+    .details {
+      font-size: 15px;
+    }
+  }
+}
+
+.dashboard-container {
+  width: 100%;
+  padding: 35px;
+  .dashboard-title {
+    color: black;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+  }
+  .campaign-views {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 125px;
+    margin-top: 25px;
+    background-color: white;
+    .views-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .number {
+        font-weight: bold;
+        font-size: 35px;
+        color: #01a1dd;
+      }
+      .details {
+        font-weight: bold;
+      }
+    }
+  }
+  .to-do-list {
+    margin-top: 20px;
+    .title {
+      font-weight: bold;
+      color: gray;
+      font-size: 20px;
+      text-decoration: none;
+    }
+    .table {
+      width: 100%;
+      height: 505px;
+      padding: 20px;
+      background-color: white;
+    }
+  }
+  .campaign-details {
+    display: flex;
+    flex-direction: row;
+    padding-top: 70px;
+    justify-content: space-between;
+    .title {
+      margin: 30px;
+      font-weight: bold;
+      color: gray;
+      font-size: 20px;
+      text-decoration: none;
+    }
+    .status {
+      height: 600px;
+      width: 48%;
+      background-color: white;
+    }
+    .report {
+      width: 48%;
+      height: 400px;
+      background-color: white;
     }
   }
 }

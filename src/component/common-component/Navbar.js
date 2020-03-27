@@ -41,7 +41,7 @@ class Navbar extends Component {
 					<div className="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul className="navbar-nav nav col-lg-10">
 							<li className="nav-link nav-item">
-								<span className="nav-options"><FontAwesomeIcon icon={faTachometerAlt} className="mr-1" /> Dashboard</span>
+								<Link style={{ color: "white" }} to="/dashboard"><FontAwesomeIcon icon={faTachometerAlt} className="mr-1" /> Dashboard</Link>
 							</li>
 							<li >
 								<ButtonDropdown isOpen={campaignsDropDownOpen} toggle={this.campaignToggle}>

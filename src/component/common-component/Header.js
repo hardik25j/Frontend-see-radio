@@ -26,7 +26,7 @@ class Header extends Component {
 
 	render() {
 		const { dropdownOpen } = this.state;
-		const { userName, email } = localStorage;
+		const { companyName, userName, email } = localStorage;
 		return (
 			<>
 				<div className="header">
@@ -45,7 +45,7 @@ class Header extends Component {
 								<DropdownToggle color="link" style={{ padding: "0px" }}>
 									<FontAwesomeIcon icon={faChevronDown} />
 								</DropdownToggle>
-								<DropdownMenu>
+								<DropdownMenu style={{ zIndex:"2020" }}>
 									<DropdownItem>
 										<FontAwesomeIcon icon={faUser} style={{ color: "#3a85f5" }} />		Profile
 								</DropdownItem>
@@ -59,6 +59,7 @@ class Header extends Component {
 							</ButtonDropdown>
 						</div>
 						<div className="details">
+							<div>{companyName}</div>
 							<div style={{ color: "#3a85f5" }} >{getRoleCode()}</div>
 							<div>{email}</div>
 						</div>
