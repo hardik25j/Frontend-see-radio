@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
-import { DropDownBox, InputBox } from "../common-component/InpuxBox";
-import { getApi } from "../../utils/interceptors";
+import { DropDownBox, InputBox } from "../../common-component/InpuxBox";
+import { getApi } from "../../../utils/interceptors";
 import { toast } from "react-toastify";
 
 export default class Campaign extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    }
     this.salesPersonList = [];
     this.advertiserList = [];
   }
@@ -20,7 +18,6 @@ export default class Campaign extends Component {
           const { id, firstName, lastName } = item.Person;
           this.salesPersonList.push({ value: id, label: firstName + " " + lastName, salesOrgCompanyID });
         })
-        console.log(response);
       })
       .then(
         getApi(`api/company/salesOrg/clients/${localStorage.companyId}`)

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { CardBody, Card, Col, Row } from "reactstrap";
-import { InputBox } from "../../common-component/InpuxBox";
-import UploadBox from "../../common-component/UploadBox";
-import { postApi } from "../../../utils/interceptors";
+import { InputBox } from "../common-component/InpuxBox";
+import UploadBox from "../common-component/UploadBox";
+import { postApi } from "../../utils/interceptors";
 import { toast } from "react-toastify";
 
 export default class UploadFiles extends Component {
@@ -16,19 +16,12 @@ export default class UploadFiles extends Component {
   }
   onFileChange = (e) => {
     e.preventDefault();
-    const { name } = e.target;
-    this.setState({
-      name: e.target.files[0]
-    });
+    this.setState({ name: e.target.files[0] });
   };
-  handleFile = (acceptedFiles, rejectedFiles, name) => {
-    this.setState({ [name]: acceptedFiles })
-  };
+  handleFile = (acceptedFiles, rejectedFiles, name) => this.setState({ [name]: acceptedFiles });
   cleanForm = () => {
     let state = this.state;
-    Object.keys(state).map((key) => {
-      state[key] = '';
-    })
+    Object.keys(state).map((key) => state[key] = '');
     this.setState(state);
   };
   onSubmitForm = () => {

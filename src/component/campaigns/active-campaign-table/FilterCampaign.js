@@ -3,50 +3,67 @@ import { Row } from "reactstrap";
 import DatePickerBox from '../../common-component/DatePickerBox'
 import { InputBox, DropDownBox } from "../../common-component/InpuxBox";
 import { FilterHeader, FilterFooter } from "../../common-component/FilterComp";
+import { getApi, postApi } from "../../../utils/interceptors";
+import { toast } from "react-toastify";
 
 export default class FilterCampaign extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filter: {
-        keyWordID: '',
-        status: '',
-        actionReqBy: '',
-        dueOnBefore: '',
-        startOnBefore: '',
-        startOnAfter: '',
-        finishOnBefore: '',
-        finishOnAfter: '',
-        salesPerson: '',
-        advertiser: ''
-      }
+      filter: this.props.filterData
     }
-    this.list = [{ label: "Hardik", value: "hardik" }]
+    this.salesPersonList = [];
+    this.advertiserList = [];
+    this.actionRequiredPersonList = [];
   }
-
+  componentDidMount() {
+    getApi('api/company/persons')
+      .then(response => {
+        response.data.map((item) => {
+          this.salesPersonList.push({ label: item.Person.email, value: item.personID });
+        })
+      })
+      .then(
+        getApi('api/company/clients')
+          .then(response => {
+            response.data.map((item) => {
+              this.advertiserList.push({ label: item.companyName, value: item.id });
+            })
+          })
+      )
+      .then(
+        postApi("api/person/all")
+          .then(response => {
+            response.data.map((item) => {
+              this.actionRequiredPersonList.push({ label: item.firstName + " " + item.lastName, value: item.id });
+            })
+          })
+      )
+      .catch(response => toast.error(response.errorMessage))
+  }
   handleChange = (e) => {
     const { filter } = this.state;
     const { name, value } = e.target;
     this.setState({ filter: { ...filter, [name]: value } });
   };
-
   changeDate = (date, name) => {
-    console.log("huhuhu");
     const { filter } = this.state;
-    console.log(date, name);
     this.setState({ filter: { ...filter, [name]: date } });
+  }
+  handleSearch = () => {
+    this.props.handleSearch(this.state.filter);
   }
   cleanFilter = () => {
     const { filter } = this.state;
     Object.keys(filter).map((key) => {
       filter[key] = '';
     })
-    this.setState({ filter });
+    this.setState({ filter }, () => this.handleSearch());
   };
   render() {
     const { handleFilter } = this.props
-    const { keyWordID, status, actionReqBy, dueOnBefore, startOnBefore, startOnAfter, finishOnBefore,
-      finishOnAfter, salesPerson, advertiser } = this.state.filter
+    const { title, statusID, statusWithPersonID, statusDueDate, startBefore, startAfter, endBefore,
+      endAfter, sosID, clientCompanyID } = this.state.filter
     return (
       <div className="filter-sidebar">
         <FilterHeader
@@ -57,9 +74,9 @@ export default class FilterCampaign extends Component {
             <InputBox
               label="Keyword(s) / ID"
               type="text"
-              name="keyWordID"
+              name="title"
               placeholder="Search"
-              value={keyWordID}
+              value={title}
               onChange={this.handleChange}
             />
           </Row>
@@ -67,9 +84,9 @@ export default class FilterCampaign extends Component {
             <DropDownBox
               className="w"
               label="Status"
-              name="status"
+              name="statusID"
               list={this.list}
-              value={status}
+              value={statusID}
               onChange={this.handleChange}
             />
           </Row>
@@ -77,59 +94,59 @@ export default class FilterCampaign extends Component {
             <DropDownBox
               className="w"
               label="Actions Required By"
-              name="actionReqBy"
-              list={this.list}
-              value={actionReqBy}
+              name="statusWithPersonID"
+              list={this.actionRequiredPersonList}
+              value={statusWithPersonID}
               onChange={this.handleChange}
             />
           </Row>
           <Row>
             <DatePickerBox
               label="Due On/Before"
-              name="dueOnBefore"
+              name="statusDueDate"
               dateFormat="dd/MMM/yy"
               placeholder="dd/mm/yy"
-              value={dueOnBefore}
+              value={statusDueDate}
               onChange={this.changeDate}
             />
           </Row>
           <Row>
             <DatePickerBox
               label="Start On/Before"
-              name="startOnBefore"
+              name="startBefore"
               dateFormat="dd/MMM/yy"
               placeholder="dd/mm/yy"
-              value={startOnBefore}
+              value={startBefore}
               onChange={this.changeDate}
             />
           </Row>
           <Row>
             <DatePickerBox
               label="Start On/After"
-              name="startOnAfter"
+              name="startAfter"
               dateFormat="dd/MMM/yy"
               placeholder="dd/mm/yy"
-              value={startOnAfter}
+              value={startAfter}
               onChange={this.changeDate}
             />
           </Row>
           <Row>
             <DatePickerBox
               label="Finish On/Before"
-              name="finishOnBefore"
+              name="endBefore"
               dateFormat="dd/MMM/yy"
               placeholder="dd/mm/yy"
-              value={finishOnBefore}
+              value={endBefore}
               onChange={this.changeDate}
             />
           </Row>
           <Row>
             <DatePickerBox
               label="Finish On/After"
-              name="finishOnAfter"
+              name="endAfter"
               dateFormat="dd/MMM/yy"
               placeholder="dd/mm/yy"
-              value={finishOnAfter}
+              value={endAfter}
               onChange={this.changeDate}
             />
           </Row>
@@ -137,9 +154,9 @@ export default class FilterCampaign extends Component {
             <DropDownBox
               className="w"
               label="Salesperson"
-              name="salesPerson"
-              list={this.list}
-              value={salesPerson}
+              name="sosID"
+              list={this.salesPersonList}
+              value={sosID}
               onChange={this.handleChange}
             />
           </Row>
@@ -147,9 +164,9 @@ export default class FilterCampaign extends Component {
             <DropDownBox
               className="w"
               label="Advertiser"
-              name="advertiser"
-              list={this.list}
-              value={advertiser}
+              name="clientCompanyID"
+              list={this.advertiserList}
+              value={clientCompanyID}
               onChange={this.handleChange}
             />
           </Row>
@@ -157,6 +174,7 @@ export default class FilterCampaign extends Component {
         <FilterFooter
           handleFilter={handleFilter}
           cleanFilter={this.cleanFilter}
+          handleSearch={this.handleSearch}
         />
       </div >
     );

@@ -1,7 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Row } from 'reactstrap';
 import { InputBox } from './InpuxBox';
 
 export const FilterHeader = (props) => {
@@ -32,7 +31,7 @@ export const FilterFooter = (props) => {
         name="next"
         className="btn btn-primary"
         value="Search"
-      // onClick={handleFilter}
+        onClick={props.handleSearch}
       />
     </div>
   );

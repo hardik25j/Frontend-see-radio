@@ -29,7 +29,6 @@ export default class FilterCampMarket extends Component {
 
   changeDate = (date, name) => {
     const { filter } = this.state;
-    console.log(date, name);
     this.setState({ filter: { ...filter, [name]: date } });
   }
   cleanFilter = () => {

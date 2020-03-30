@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Row, Col, Card, CardBody } from "reactstrap";
 import Campaign from "./Campaign";
 import Distribution from "./Distribution";
-import { InputBox } from "../common-component/InpuxBox";
-import { checkValidation, setterErrorMsg } from "../common-component/Validation";
-import { postApi } from "../../utils/interceptors";
+import { InputBox } from "../../common-component/InpuxBox";
+import { checkValidation, setterErrorMsg } from "../../common-component/Validation";
+import { postApi } from "../../../utils/interceptors";
 import { toast } from "react-toastify";
 
 
@@ -47,7 +47,6 @@ export default class AddCampaign extends Component {
   }
   changeDate = (date, name) => {
     const { form } = this.state;
-    console.log(date);
     this.setState({
       form: { ...form, [name]: date }
     });
@@ -60,9 +59,7 @@ export default class AddCampaign extends Component {
   };
   cleanForm = () => {
     const { form } = this.state;
-    Object.keys(form).map((key) => {
-      form[key] = '';
-    })
+    Object.keys(form).map((key) => form[key] = '')
     this.setState({ errors: {}, form });
   };
   onSubmitForm = () => {
@@ -75,9 +72,7 @@ export default class AddCampaign extends Component {
     else {
       const objData = this.setterData();
       postApi('api/campaign/', objData)
-        .then(() => {
-          toast.success("form submitted");
-        })
+        .then(() => toast.success("form submitted"))
         .catch(response => toast.error(response.errorMessage))
     }
   };
@@ -113,7 +108,6 @@ export default class AddCampaign extends Component {
             <div className="title-header">Add New Campaign</div>
             <Card >
               <CardBody>
-
                 <div className="form-title">Campaign</div>
                 <Campaign
                   isReq={true}
@@ -124,7 +118,6 @@ export default class AddCampaign extends Component {
                   changeDropDown={this.changeDropDown}
                   onFieldValidate={this.onFieldValidate}
                 />
-
                 <div className="form-title">Distribution</div>
                 <Distribution
                   isReq={true}

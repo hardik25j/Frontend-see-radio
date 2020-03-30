@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
-import { InputBox, DropDownBox } from "../common-component/InpuxBox";
-import { getApi } from '../../utils/interceptors';
+import { InputBox, DropDownBox } from "../../common-component/InpuxBox";
+import { getApi } from '../../../utils/interceptors';
 import { toast } from 'react-toastify';
 
 export default class Company extends Component {
@@ -15,24 +15,22 @@ export default class Company extends Component {
       .then(response => {
         response.data.map((item) => {
           const { id, firstName, lastName, email } = item.Person;
-          this.salesPersonList = [...this.salesPersonList, { value: id, label: firstName + " " + lastName + "- " + email }];
+          this.salesPersonList.push({ value: id, label: firstName + " " + lastName + "- " + email });
         })
       })
       .then(
         getApi('api/wholesalepricing/getIndustries')
           .then(response => {
             response.data.map((item) => {
-              this.industryList = [...this.industryList, { value: item.id, label: item.name }];
+              this.industryList.push({ value: item.id, label: item.name });
             })
           })
       )
       .catch(response => toast.error(response.errorMessage))
   }
-
   render() {
     const { isReq, companyName, companyWebsite, salesPerson, changeDropDown, industry, errors,
       handleChange, onFieldValidate } = this.props;
-
     return (
       <>
         <Row>

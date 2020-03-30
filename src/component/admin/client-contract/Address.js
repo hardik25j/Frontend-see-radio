@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
-import { InputBox, DropDownBox } from "../common-component/InpuxBox";
-import { getApi } from '../../utils/interceptors';
+import { InputBox, DropDownBox } from "../../common-component/InpuxBox";
+import { getApi } from '../../../utils/interceptors';
 import { toast } from 'react-toastify';
 
-class Address extends Component {
+export default class Address extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +16,6 @@ class Address extends Component {
       { value: "US", label: "United States" },
     ];
   }
-
   handleCountry = (e) => {
     const { value } = e.target;
     this.stateProvinceList = [];
@@ -33,13 +32,9 @@ class Address extends Component {
         .catch(response => toast.error(response.errorMessage))
       : this.props.changeDropDown(e);
   }
-
   render() {
-    const {
-      isDisabled, secondary, address1, address2, city, country, changeDropDown,
-      stateProvince, postal, errors, handleChange, onFieldValidate
-    } = this.props;
-
+    const { isDisabled, secondary, address1, address2, city, country, changeDropDown,
+      stateProvince, postal, errors, handleChange, onFieldValidate } = this.props;
     return (
       <>
         <Row>
@@ -132,5 +127,3 @@ class Address extends Component {
     );
   }
 }
-
-export default Address;

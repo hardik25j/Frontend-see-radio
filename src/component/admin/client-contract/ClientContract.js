@@ -3,9 +3,9 @@ import { Row, Col, Card, CardBody } from "reactstrap";
 import Contact from "./Contact";
 import Address from "./Address";
 import Company from "./Company";
-import { InputBox } from "../common-component/InpuxBox";
-import { checkValidation, getRegExp } from "../common-component/Validation";
-import { postApi } from "../../utils/interceptors";
+import { InputBox } from "../../common-component/InpuxBox";
+import { checkValidation, getRegExp } from "../../common-component/Validation";
+import { postApi } from "../../../utils/interceptors";
 import { toast } from 'react-toastify';
 
 export default class ClientContract extends Component {
@@ -63,18 +63,15 @@ export default class ClientContract extends Component {
 		}
 		this.setState({ form });
 	};
-
 	changeDropDown = (e) => {
 		const { errors } = this.state;
 		const { name, value } = e.target;
 		let errorMsg = "";
 		if (!value)
 			errorMsg = `Please Select.`;
-
 		errors[name] = errorMsg;
 		this.setState({ errors }, () => this.handleChange(e));
 	}
-
 	checkHandler = (e) => {
 		const { checked } = e.target;
 		let { form, addressType } = this.state;
@@ -98,7 +95,6 @@ export default class ClientContract extends Component {
 		}
 		this.setState({ form, addressType, businessAddress: checked });
 	}
-
 	onFieldValidate = (e) => {
 		const { name, value, title, attributes } = e.target;
 		const { errors } = this.state;
@@ -115,21 +111,15 @@ export default class ClientContract extends Component {
 		errors[name] = errorMsg;
 		this.setState({ errors });
 	};
-
 	cleanForm = () => {
 		const { form } = this.state;
-		Object.keys(form).map((key) => {
-			form[key] = '';
-		})
+		Object.keys(form).map((key) => form[key] = '')
 		this.setState({ errors: {}, form });
 	};
-
 	onSubmitForm = () => {
 		const { form, errors } = this.state;
-		const notReq = [
-			'firstNameSecondary', 'lastNameSecondary', 'emailSecondary',
-			'phoneSecondary', 'address2', 'address2Secondary'
-		];
+		const notReq = ['firstNameSecondary', 'lastNameSecondary', 'emailSecondary',
+			'phoneSecondary', 'address2', 'address2Secondary'];
 		const validationError = checkValidation(errors, form, notReq);
 
 		if (Object.keys(validationError).length !== 0)
@@ -137,16 +127,13 @@ export default class ClientContract extends Component {
 		else {
 			const objData = this.setterData();
 			postApi('api/company/client', objData)
-				.then(() => {
-					toast.success("form submitted");
-				})
+				.then(() => toast.success("form submitted"))
 				.catch(response => toast.error(response.errorMessage))
 		}
 	};
-
 	setterData = () => {
 		const { form, businessAddress, addressType } = this.state;
-		const { companyName, companyWebsite, salesPerson, industry, firstName, lastName, email, phone,
+		const { companyName, companyWebsite, salesPerson, firstName, lastName, email, phone,
 			firstNameSecondary, lastNameSecondary, emailSecondary, phoneSecondary, address1, address2,
 			city, country, stateProvince, postal, address1Secondary, address2Secondary, citySecondary,
 			countrySecondary, stateProvinceSecondary, postalSecondary } = form;
@@ -193,7 +180,6 @@ export default class ClientContract extends Component {
 		}
 		return obj;
 	}
-
 	render() {
 		const { form, errors, businessAddress } = this.state;
 		const { companyName, companyWebsite, salesPerson, industry, firstName, lastName, email, phone,

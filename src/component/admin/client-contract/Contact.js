@@ -1,22 +1,19 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
-import { InputBox } from "../common-component/InpuxBox";
-import { phoneNumberFromatter } from "../common-component/Validation";
+import { InputBox } from "../../common-component/InpuxBox";
+import { phoneNumberFromatter } from "../../common-component/Validation";
 
 class Contact extends Component {
   constructor(props) {
     super(props);
   }
-
   handlePhone = (e) => {
     let { value } = e.target;
     e.target.value = phoneNumberFromatter(value);
     this.props.handleChange(e);
   }
-
   render() {
-    const { isReq, secondary,
-      firstName, lastName, email, phone, errors,
+    const { isReq, secondary, firstName, lastName, email, phone, errors,
       handleChange, onFieldValidate } = this.props;
     return (
       <>
@@ -76,7 +73,8 @@ class Contact extends Component {
             />
           </Col>
         </Row>
-      </>);
+      </>
+    );
   }
 }
 

@@ -20,7 +20,6 @@ export default class CampaignMarketTable extends Component {
     }
     postApi("api/campaign/getAllCampaigns", sendData)
       .then(response => {
-        console.log(response);
       })
       .catch((response) => {
         response && toast.error(response.errorMessage);

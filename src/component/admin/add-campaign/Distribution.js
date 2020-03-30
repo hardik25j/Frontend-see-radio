@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
-import DatePickerBox from "../common-component/DatePickerBox";
-import { getApi } from "../../utils/interceptors";
+import DatePickerBox from "../../common-component/DatePickerBox";
+import { getApi } from "../../../utils/interceptors";
 import { toast } from "react-toastify";
-import { DropDownBox, InputBox } from "../common-component/InpuxBox";
+import { DropDownBox, InputBox } from "../../common-component/InpuxBox";
 
 export default class Distribution extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    }
     this.targetMarketList = [];
     this.timeSpanList = [
       { label: 'Days', value: 'days' },
@@ -27,10 +24,8 @@ export default class Distribution extends Component {
       .catch(response => toast.error(response))
   }
   render() {
-    const { isReq, data, errors, handleChange, onFieldValidate, onChange, changeDropDown,
-      changeDate } = this.props;
+    const { isReq, data, errors, handleChange, onFieldValidate, changeDropDown, changeDate } = this.props;
     const { targetMarket, views, startDate, endDate, timeSpan, duration } = data;
-
     return (
       <>
         <Row>
