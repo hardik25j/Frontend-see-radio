@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 
 
@@ -15,7 +16,7 @@ export default class UploadBox extends Component {
     })
   };
   render() {
-    const { name } = this.props;
+    const { name, placeholder } = this.props;
     const files = this.state.acceptedFiles.map(file => (
       <li key={file.name}>
         {file.name} - {file.size} bytes
@@ -27,7 +28,7 @@ export default class UploadBox extends Component {
           <section className="drop-area">
             <div {...getRootProps({ className: 'dropzone' })}>
               <input {...getInputProps()} />
-              <p className="placeholder">{this.props.placeholder}</p>
+              <p className="placeholder">{placeholder}</p>
             </div>
             <aside>
               <ul>{files}</ul>
@@ -37,4 +38,10 @@ export default class UploadBox extends Component {
       </Dropzone>
     );
   }
+}
+
+UploadBox.propTypes = {
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.node,
+  handleFile: PropTypes.func,
 }

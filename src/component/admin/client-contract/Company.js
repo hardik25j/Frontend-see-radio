@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { Row, Col } from "reactstrap";
-import { InputBox, DropDownBox } from "../../common-component/InpuxBox";
+import InputBox from "../../common-component/InpuxBox";
+import DropDownBox from '../../common-component/DropDownBox';
 import { getApi } from '../../../utils/interceptors';
 import { toast } from 'react-toastify';
 
@@ -88,4 +90,18 @@ export default class Company extends Component {
       </>
     );
   }
+}
+
+Company.propTypes = {
+  isReq: PropTypes.bool,
+  companyName: PropTypes.string,
+  companyWebsite: PropTypes.string,
+  salesPerson: PropTypes.string,
+  industry: PropTypes.string,
+  industryList: PropTypes.array,
+  errors: PropTypes.object,
+  handleChange: PropTypes.func,
+  onFieldValidate: PropTypes.func,
+  changeDropDown: PropTypes.func,
+  onChange: PropTypes.func
 }

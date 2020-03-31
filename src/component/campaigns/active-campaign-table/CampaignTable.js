@@ -3,6 +3,8 @@ import ReactTable from 'react-table'
 import { postApi } from "../../../utils/interceptors";
 import { toast } from "react-toastify";
 import FilterCampaign from "./FilterCampaign";
+import PersonDetail from "./PersonDetail";
+import { Link } from "react-router-dom";
 
 export default class CampaignTable extends Component {
   constructor(props) {
@@ -10,6 +12,8 @@ export default class CampaignTable extends Component {
     this.state = {
       data: [],
       filterBar: false,
+      modal: false,
+      personID: '',
     }
     this.filterData = {
       title: '',
@@ -61,9 +65,15 @@ export default class CampaignTable extends Component {
   handleFilter = () => {
     this.setState({ filterBar: !this.state.filterBar });
   }
+  openModal = (id) => {
+    this.setState({ personID: id, modal: !this.state.modal })
+  }
+  toggleModal = () => {
+    this.setState({ modal: !this.state.modal })
+  }
 
   render() {
-    const { data, filterBar } = this.state;
+    const { data, filterBar, modal, personID } = this.state;
     const columns = [{
       Header: 'ID',
       accessor: 'clientCampaignNumber'
@@ -71,8 +81,9 @@ export default class CampaignTable extends Component {
       Header: 'Title/Details',
       accessor: 'title',
       Cell: row => <div>
+        <Link to={`/campaign-detail/${row.original.id}`}>{row.original.title}</Link>
         <span >
-          {row.original.title}<br />{row.original.description}
+          <br />{row.original.description}
         </span>
       </div>
     }, {
@@ -83,7 +94,9 @@ export default class CampaignTable extends Component {
       accessor: 'statusWithPerson',
       Cell: row => <div>
         <span >
-          {row.row.statusWithPerson.firstName} {row.row.statusWithPerson.lastName}<br />
+          <Link to={`/campaign-table`} onClick={() => this.openModal(row.row.statusWithPerson.id)}>
+            {row.row.statusWithPerson.firstName} {row.row.statusWithPerson.lastName}
+          </Link><br />
           ({row.row.statusWithPerson.roleCode})
         </span>
       </div>
@@ -106,6 +119,7 @@ export default class CampaignTable extends Component {
 
     return (
       <>
+        <PersonDetail modal={modal} id={personID} toggle={this.toggleModal} />
         {filterBar &&
           <FilterCampaign
             filterData={this.filterData}

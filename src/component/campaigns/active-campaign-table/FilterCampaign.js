@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Row } from "reactstrap";
 import DatePickerBox from '../../common-component/DatePickerBox'
-import { InputBox, DropDownBox } from "../../common-component/InpuxBox";
+import InputBox from "../../common-component/InpuxBox";
+import DropDownBox from '../../common-component/DropDownBox';
 import { FilterHeader, FilterFooter } from "../../common-component/FilterComp";
 import { getApi, postApi } from "../../../utils/interceptors";
 import { toast } from "react-toastify";

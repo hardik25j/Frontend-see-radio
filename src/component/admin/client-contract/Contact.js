@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
-import { InputBox } from "../../common-component/InpuxBox";
+import InputBox from "../../common-component/InpuxBox";
 import { phoneNumberFromatter } from "../../common-component/Validation";
 
-class Contact extends Component {
+export default class Contact extends Component {
   constructor(props) {
     super(props);
   }
@@ -77,5 +77,3 @@ class Contact extends Component {
     );
   }
 }
-
-export default Contact;

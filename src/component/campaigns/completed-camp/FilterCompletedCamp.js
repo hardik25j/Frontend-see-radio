@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Row } from "reactstrap";
 import { FilterHeader, FilterFooter } from "../../common-component/FilterComp";
-import { InputBox, DropDownBox } from "../../common-component/InpuxBox";
-import DatePickerBox from "../../common-component/DatePickerBox";
+import InputBox from "../../common-component/InpuxBox";
+import DropDownBox from '../../common-component/DropDownBox';
 
 export default class FilterCompletedCamp extends Component {
   constructor() {
@@ -12,7 +12,7 @@ export default class FilterCompletedCamp extends Component {
         keyWordID: '',
         salesPerson: '',
         advertiser: '',
-        groupBy:''
+        groupBy: ''
       }
     }
     this.list = [{ label: "Hardik", value: "hardik" }]

@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { Row, Col } from "reactstrap";
 import DatePickerBox from "../../common-component/DatePickerBox";
 import { getApi } from "../../../utils/interceptors";
 import { toast } from "react-toastify";
-import { DropDownBox, InputBox } from "../../common-component/InpuxBox";
+import InputBox from "../../common-component/InpuxBox";
+import DropDownBox from '../../common-component/DropDownBox';
 
 export default class Distribution extends Component {
   constructor(props) {
@@ -105,4 +107,15 @@ export default class Distribution extends Component {
       </>
     );
   }
+}
+
+Distribution.propTypes = {
+  isReq: PropTypes.bool,
+  data: PropTypes.object,
+  error: PropTypes.string,
+  handleChange: PropTypes.func,
+  onFieldValidate: PropTypes.func,
+  changeDropDown: PropTypes.func,
+  onChange: PropTypes.func,
+  changeDate: PropTypes.func
 }

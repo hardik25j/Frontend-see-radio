@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { Row, Col } from "reactstrap";
-import { DropDownBox, InputBox } from "../../common-component/InpuxBox";
+import InputBox from "../../common-component/InpuxBox";
+import DropDownBox from '../../common-component/DropDownBox';
 import { getApi } from "../../../utils/interceptors";
 import { toast } from "react-toastify";
 
@@ -118,4 +120,14 @@ export default class Campaign extends Component {
       </>
     );
   }
+}
+
+Campaign.propTypes = {
+  isReq: PropTypes.bool,
+  data: PropTypes.object,
+  error: PropTypes.string,
+  handleChange: PropTypes.func,
+  onFieldValidate: PropTypes.func,
+  changeDropDown: PropTypes.func,
+  onChange: PropTypes.func
 }

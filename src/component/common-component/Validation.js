@@ -1,4 +1,4 @@
-export const checkValidation = (errors, data, notReq = null) => {
+export function checkValidation(errors, data, notReq = null) {
   const finalErrors = {};
   if (!notReq)
     return finalErrors;
@@ -15,7 +15,7 @@ export const checkValidation = (errors, data, notReq = null) => {
   return finalErrors;
 };
 
-export const getRegExp = (name) => {
+export function getRegExp(name) {
 
   switch (name) {
     case 'name':
@@ -40,7 +40,7 @@ export const getRegExp = (name) => {
   }
 }
 
-export const setterErrorMsg = (e) => {
+export function setterErrorMsg(e) {
   const { name, value, title, attributes } = e.target;
   const isReq = attributes.getNamedItem("data-attribute").value;
 
@@ -60,7 +60,7 @@ export const setterErrorMsg = (e) => {
     }
 }
 
-export const phoneNumberFromatter = (value) => {
+export function phoneNumberFromatter(value) {
   let input = value.replace(/\D/g, '');
   input = input.substring(0, 10);
   var size = input.length;

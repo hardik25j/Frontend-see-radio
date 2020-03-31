@@ -45,7 +45,7 @@ class Header extends Component {
 								<DropdownToggle color="link" style={{ padding: "0px" }}>
 									<FontAwesomeIcon icon={faChevronDown} />
 								</DropdownToggle>
-								<DropdownMenu style={{ zIndex:"2020" }}>
+								<DropdownMenu style={{ zIndex: "2020" }}>
 									<DropdownItem>
 										<FontAwesomeIcon icon={faUser} style={{ color: "#3a85f5" }} />		Profile
 								</DropdownItem>

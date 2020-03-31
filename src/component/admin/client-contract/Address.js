@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
-import { InputBox, DropDownBox } from "../../common-component/InpuxBox";
+import InputBox from "../../common-component/InpuxBox";
+import DropDownBox from '../../common-component/DropDownBox';
 import { getApi } from '../../../utils/interceptors';
 import { toast } from 'react-toastify';
 

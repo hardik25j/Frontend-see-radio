@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Row } from "reactstrap";
 import { FilterHeader, FilterFooter } from "../../common-component/FilterComp";
-import { InputBox, DropDownBox } from "../../common-component/InpuxBox";
+import InputBox from "../../common-component/InpuxBox";
+import DropDownBox from '../../common-component/DropDownBox';
 import DatePickerBox from "../../common-component/DatePickerBox";
 
 export default class FilterCampMarket extends Component {

@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { isLogin } from '../../utils';
 import Header from './Header';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+export default function PrivateRoute({ component: Component, ...rest }) {
 	return (
 		<>
 			{isLogin() && <Header />}
@@ -16,4 +17,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 	);
 };
 
-export default PrivateRoute;
+PrivateRoute.propTypes = {
+	path: PropTypes.string.isRequired,
+	component: PropTypes.elementType.isRequired
+}

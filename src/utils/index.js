@@ -1,21 +1,21 @@
-export const logIn = (clientObj) => {
+export function logIn(clientObj) {
 	Object.keys(clientObj).map((key) => {
 		localStorage.setItem(key, clientObj[key]);
 	})
 }
 
-export const logOut = () => {
+export function logOut() {
 	localStorage.clear();
 }
 
-export const isLogin = () => {
+export function isLogin() {
 	if (localStorage.token) {
 		return true;
 	}
 	return false;
 }
 
-export const getRoleCode = () => {
+export function getRoleCode() {
 	let roleCode = localStorage.roleCode;
 	if (roleCode === 'SRA')
 		return 'See Radio Administrator'

@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { InputBox } from './InpuxBox';
+import InputBox from './InpuxBox';
 
-export const FilterHeader = (props) => {
+export function FilterHeader(props) {
   return (
     <div className="filter-header">
       <FontAwesomeIcon
@@ -16,7 +17,11 @@ export const FilterHeader = (props) => {
   );
 }
 
-export const FilterFooter = (props) => {
+FilterHeader.propTypes = {
+  handleFilter: PropTypes.func,
+}
+
+export function FilterFooter(props) {
   return (
     <div className="d-flex justify-content-around filter-footer">
       <InputBox
@@ -35,4 +40,9 @@ export const FilterFooter = (props) => {
       />
     </div>
   );
+}
+
+FilterFooter.propTypes = {
+  handleSearch: PropTypes.func,
+  handleFilter: PropTypes.func,
 }
