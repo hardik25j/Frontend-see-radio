@@ -14,7 +14,7 @@ export default function DropDownBox(props) {
       <ReactSelect
         className={className}
         name={name}
-        title={label}
+        title={label} 
         isClearable={true}
         isDisabled={isDisabled}
         options={list}
@@ -36,12 +36,16 @@ export default function DropDownBox(props) {
 
 DropDownBox.defaultProps = {
   isReq: false,
-  isDisabled: false
+  isDisabled: false,
+  isClearable: true
 }
 
 DropDownBox.propTypes = {                                                                                                   //when we declare any props which is Required then must be defined their "its default value".
   name: PropTypes.string.isRequired,
   value: PropTypes.object.isRequired,
+  isClearable: PropTypes.bool,
+  isReq: PropTypes.bool,
+  isClearable: PropTypes.bool,
   label: PropTypes.string,
   placeholder: PropTypes.node,
   error: PropTypes.string,

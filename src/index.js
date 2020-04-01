@@ -26,7 +26,7 @@ ReactDOM.render(
 				{
 					routes.map((item, i) => {
 						if (item.route === "private")
-							return <PrivateRoute key={i} path={item.path} component={item.component} />
+						return <PrivateRoute key={i} path={item.path} component={item.component} />
 						return <Route key={i} path={item.path} component={item.component} />
 					})
 				}
