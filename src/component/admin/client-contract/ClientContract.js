@@ -17,8 +17,8 @@ export default class ClientContract extends Component {
 			form: {
 				companyName: '',
 				companyWebsite: '',
-				salesPerson: '',
-				industry: '',
+				salesPerson: {},
+				industry: {},
 				firstName: '',
 				lastName: '',
 				email: '',
@@ -30,14 +30,14 @@ export default class ClientContract extends Component {
 				address1: '',
 				address2: '',
 				city: '',
-				country: '',
-				stateProvince: '',
+				country: {},
+				stateProvince: {},
 				postal: '',
 				address1Secondary: '',
 				address2Secondary: '',
 				citySecondary: '',
-				countrySecondary: '',
-				stateProvinceSecondary: '',
+				countrySecondary: {},
+				stateProvinceSecondary: {},
 				postalSecondary: ''
 			},
 			errors: {}
@@ -201,7 +201,6 @@ export default class ClientContract extends Component {
 									industry={industry}
 									errors={errors}
 									industryList={this.industryList}
-									onChange={this.onChange}
 									handleChange={this.handleChange}
 									changeDropDown={this.changeDropDown}
 									onFieldValidate={this.onFieldValidate}
@@ -250,7 +249,7 @@ export default class ClientContract extends Component {
 								</div>
 								<Address
 									secondary={true}
-									isDisabled={businessAddress}
+									isDisabled={businessAddress ? true : false}
 									address1={address1Secondary}
 									address2={address2Secondary}
 									city={citySecondary}

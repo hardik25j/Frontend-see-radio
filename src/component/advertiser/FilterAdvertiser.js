@@ -12,7 +12,7 @@ export default class FilterAdvertiser extends Component {
       filter: {
         keyWordID: '',
         lastCampAdd: '',
-        salesPerson: ''
+        salesPerson: {}
       }
     }
     this.list = [{ label: "Hardik", value: "hardik" }]

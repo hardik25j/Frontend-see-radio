@@ -19,6 +19,7 @@ export default class Campaign extends Component {
           const { salesOrgCompanyID } = item;
           const { id, firstName, lastName } = item.Person;
           this.salesPersonList.push({ value: id, label: firstName + " " + lastName, salesOrgCompanyID });
+          return null;
         })
       })
       .then(
@@ -27,6 +28,7 @@ export default class Campaign extends Component {
             response.data.map((item) => {
               const { id, companyName, companyWebsite } = item;
               this.advertiserList.push({ value: id, label: companyName, webSite: companyWebsite });
+              return null;
             })
           })
       )
@@ -121,9 +123,13 @@ export default class Campaign extends Component {
     );
   }
 }
-
+Campaign.defaultProps = {
+  isReq: false,
+  isDisabled: false
+}
 Campaign.propTypes = {
   isReq: PropTypes.bool,
+  isDisabled: PropTypes.bool,
   data: PropTypes.object,
   error: PropTypes.string,
   handleChange: PropTypes.func,

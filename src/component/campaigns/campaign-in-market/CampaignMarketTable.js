@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactTable from 'react-table'
-import { postApi, getApi } from "../../../utils/interceptors";
+import { postApi } from "../../../utils/interceptors";
 import { toast } from "react-toastify";
 import FilterCampMarket from "./FilterCampMarket";
 

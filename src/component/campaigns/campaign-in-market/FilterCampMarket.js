@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { Row } from "reactstrap";
 import { FilterHeader, FilterFooter } from "../../common-component/FilterComp";
 import InputBox from "../../common-component/InpuxBox";
@@ -15,8 +16,8 @@ export default class FilterCampMarket extends Component {
         startOnAfter: '',
         finishOnBefore: '',
         finishOnAfter: '',
-        salesPerson: '',
-        advertiser: ''
+        salesPerson: {},
+        advertiser: {}
       }
     }
     this.list = [{ label: "Hardik", value: "hardik" }]
@@ -128,4 +129,8 @@ export default class FilterCampMarket extends Component {
       </div >
     );
   }
+}
+
+FilterCampMarket.propTypes = {
+  handleFilter: PropTypes.func,
 }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { Row, Col } from "reactstrap";
 import InputBox from "../../common-component/InpuxBox";
 import DropDownBox from '../../common-component/DropDownBox';
@@ -27,6 +28,7 @@ export default class Address extends Component {
           response.data.map((item) => {
             const { name, code, id } = item;
             this.stateProvinceList = [...this.stateProvinceList, { value: code, label: name, id }]
+            return null;
           })
           this.props.changeDropDown(e);
         })
@@ -98,7 +100,7 @@ export default class Address extends Component {
         <Row>
           <Col>
             <DropDownBox
-              label={country.value ? `${country.value == 'CA' ? 'Province' : 'State'}` : 'State/Province'}
+              label={country.value ? `${country.value === 'CA' ? 'Province' : 'State'}` : 'State/Province'}
               name={secondary ? "stateProvinceSecondary" : "stateProvince"}
               isReq={true}
               isDisabled={isDisabled ? true : !country.value}
@@ -127,4 +129,23 @@ export default class Address extends Component {
       </>
     );
   }
+}
+
+Address.defaultProps = {
+  isReq: false,
+  isDisabled: false
+}
+Address.propTypes = {
+  isReq: PropTypes.bool,
+  isDisabled: PropTypes.bool,
+  address1: PropTypes.string,
+  address2: PropTypes.string,
+  city: PropTypes.string,
+  country: PropTypes.object,
+  stateProvince: PropTypes.object,
+  postal: PropTypes.string,
+  errors: PropTypes.object,
+  changeDropDown: PropTypes.func,
+  handleChange: PropTypes.func,
+  onFieldValidate: PropTypes.func
 }

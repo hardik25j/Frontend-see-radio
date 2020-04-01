@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { Row } from "reactstrap";
 import DatePickerBox from '../../common-component/DatePickerBox'
 import InputBox from "../../common-component/InpuxBox";
@@ -22,6 +23,7 @@ export default class FilterCampaign extends Component {
       .then(response => {
         response.data.map((item) => {
           this.salesPersonList.push({ label: item.Person.email, value: item.personID });
+          return null;
         })
       })
       .then(
@@ -180,4 +182,10 @@ export default class FilterCampaign extends Component {
       </div >
     );
   }
+}
+
+FilterCampaign.propTypes = {
+  filterData: PropTypes.object,
+  handleFilter: PropTypes.func,
+  handleSearch: PropTypes.func
 }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { Row } from "reactstrap";
 import { FilterHeader, FilterFooter } from "../../common-component/FilterComp";
 import InputBox from "../../common-component/InpuxBox";
@@ -10,9 +11,9 @@ export default class FilterCompletedCamp extends Component {
     this.state = {
       filter: {
         keyWordID: '',
-        salesPerson: '',
-        advertiser: '',
-        groupBy: ''
+        salesPerson: {},
+        advertiser: {},
+        groupBy: {}
       }
     }
     this.list = [{ label: "Hardik", value: "hardik" }]
@@ -93,4 +94,7 @@ export default class FilterCompletedCamp extends Component {
       </div >
     );
   }
+}
+FilterCompletedCamp.propTypes = {
+  handleFilter: PropTypes.func,
 }

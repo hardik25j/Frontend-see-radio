@@ -18,6 +18,7 @@ export default class Company extends Component {
         response.data.map((item) => {
           const { id, firstName, lastName, email } = item.Person;
           this.salesPersonList.push({ value: id, label: firstName + " " + lastName + "- " + email });
+          return null;
         })
       })
       .then(
@@ -25,6 +26,7 @@ export default class Company extends Component {
           .then(response => {
             response.data.map((item) => {
               this.industryList.push({ value: item.id, label: item.name });
+              return null;
             })
           })
       )
@@ -92,16 +94,21 @@ export default class Company extends Component {
   }
 }
 
+Company.defaultProps = {
+  isReq: false,
+  isDisabled: false
+}
+
 Company.propTypes = {
   isReq: PropTypes.bool,
+  isDisabled: PropTypes.bool,
   companyName: PropTypes.string,
   companyWebsite: PropTypes.string,
-  salesPerson: PropTypes.string,
-  industry: PropTypes.string,
+  salesPerson: PropTypes.object,
+  industry: PropTypes.object,
   industryList: PropTypes.array,
   errors: PropTypes.object,
   handleChange: PropTypes.func,
   onFieldValidate: PropTypes.func,
   changeDropDown: PropTypes.func,
-  onChange: PropTypes.func
 }

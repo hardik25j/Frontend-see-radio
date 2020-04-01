@@ -17,15 +17,15 @@ export default class CampaignTable extends Component {
     }
     this.filterData = {
       title: '',
-      statusID: '',
-      statusWithPersonID: '',
+      statusID: {},
+      statusWithPersonID: {},
       statusDueDate: '',
       startBefore: '',
       startAfter: '',
       endBefore: '',
       endAfter: '',
-      sosID: '',
-      clientCompanyID: ''
+      sosID: {},
+      clientCompanyID: {}
     }
   }
 

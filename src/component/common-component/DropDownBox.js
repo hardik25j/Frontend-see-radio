@@ -41,7 +41,7 @@ DropDownBox.defaultProps = {
 
 DropDownBox.propTypes = {                                                                                                   //when we declare any props which is Required then must be defined their "its default value".
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.object.isRequired,
   label: PropTypes.string,
   placeholder: PropTypes.node,
   error: PropTypes.string,

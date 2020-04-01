@@ -109,8 +109,14 @@ export default class Distribution extends Component {
   }
 }
 
+Distribution.defaultProps = {
+  isReq: false,
+  isDisabled: false
+}
+
 Distribution.propTypes = {
   isReq: PropTypes.bool,
+  isDisabled: PropTypes.bool,
   data: PropTypes.object,
   error: PropTypes.string,
   handleChange: PropTypes.func,

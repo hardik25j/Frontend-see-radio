@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { Row, Col } from "reactstrap";
 import InputBox from "../../common-component/InpuxBox";
 import { phoneNumberFromatter } from "../../common-component/Validation";
@@ -76,4 +77,20 @@ export default class Contact extends Component {
       </>
     );
   }
+}
+
+Contact.defaultProps = {
+  isReq: false,
+  isDisabled: false
+}
+Contact.propTypes = {
+  isReq: PropTypes.bool,
+  isDisabled: PropTypes.bool,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  email: PropTypes.string,
+  phone: PropTypes.string,
+  errors: PropTypes.object,
+  handleChange: PropTypes.func,
+  onFieldValidate: PropTypes.func
 }

@@ -13,17 +13,17 @@ export default class AddCampaign extends Component {
     super(props);
     this.state = {
       form: {
-        salesPerson: '',
-        advertiser: '',
+        salesPerson: {},
+        advertiser: {},
         title: '',
         URL: '',
         price: '',
         description: '',
-        targetMarket: '',
+        targetMarket: {},
         views: '',
         startDate: '',
         endDate: '',
-        timeSpan: '',
+        timeSpan: {},
         duration: '',
       },
       errors: {}
@@ -113,7 +113,6 @@ export default class AddCampaign extends Component {
                   isReq={true}
                   data={form}
                   errors={errors}
-                  onChange={this.onChange}
                   handleChange={this.handleChange}
                   changeDropDown={this.changeDropDown}
                   onFieldValidate={this.onFieldValidate}
@@ -123,7 +122,6 @@ export default class AddCampaign extends Component {
                   isReq={true}
                   data={form}
                   errors={errors}
-                  onChange={this.onChange}
                   handleChange={this.handleChange}
                   changeDropDown={this.changeDropDown}
                   changeDate={this.changeDate}
