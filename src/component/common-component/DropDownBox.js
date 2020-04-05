@@ -4,7 +4,7 @@ import ReactSelect from 'react-select';
 import { FormGroup, Label } from 'reactstrap';
 
 export default function DropDownBox(props) {
-  const { isDisabled, list, label, name, isReq, value, onChange, onBlur, error, className } = props;
+  const { isDisabled, list, label, name, isReq, value, onChange, error, className } = props;
   return (
     <FormGroup>
       <Label className="font-weight-bold">
@@ -14,7 +14,7 @@ export default function DropDownBox(props) {
       <ReactSelect
         className={className}
         name={name}
-        title={label} 
+        title={label}
         isClearable={true}
         isDisabled={isDisabled}
         options={list}
@@ -47,7 +47,6 @@ DropDownBox.propTypes = {                                                       
   isReq: PropTypes.bool,
   isClearable: PropTypes.bool,
   label: PropTypes.string,
-  placeholder: PropTypes.node,
   error: PropTypes.string,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,

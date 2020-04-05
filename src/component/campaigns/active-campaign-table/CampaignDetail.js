@@ -5,7 +5,7 @@ export default class CampaignDetail extends Component {
     return (
       <>
         <div >
-
+  
         </div>
       </>
     );

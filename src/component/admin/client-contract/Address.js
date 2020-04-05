@@ -133,10 +133,13 @@ export default class Address extends Component {
 
 Address.defaultProps = {
   isReq: false,
-  isDisabled: false
+  isDisabled: false,
+  secondary: false
 }
+
 Address.propTypes = {
   isReq: PropTypes.bool,
+  secondary: PropTypes.bool,
   isDisabled: PropTypes.bool,
   address1: PropTypes.string,
   address2: PropTypes.string,

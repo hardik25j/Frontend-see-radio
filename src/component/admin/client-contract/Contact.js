@@ -5,9 +5,6 @@ import InputBox from "../../common-component/InpuxBox";
 import { phoneNumberFromatter } from "../../common-component/Validation";
 
 export default class Contact extends Component {
-  constructor(props) {
-    super(props);
-  }
   handlePhone = (e) => {
     let { value } = e.target;
     e.target.value = phoneNumberFromatter(value);
@@ -81,11 +78,13 @@ export default class Contact extends Component {
 
 Contact.defaultProps = {
   isReq: false,
-  isDisabled: false
+  isDisabled: false,
+  secondary: false
 }
 Contact.propTypes = {
   isReq: PropTypes.bool,
   isDisabled: PropTypes.bool,
+  secondary: PropTypes.bool,
   firstName: PropTypes.string,
   lastName: PropTypes.string,
   email: PropTypes.string,

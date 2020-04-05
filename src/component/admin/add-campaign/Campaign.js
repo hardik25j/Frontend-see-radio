@@ -134,6 +134,5 @@ Campaign.propTypes = {
   error: PropTypes.string,
   handleChange: PropTypes.func,
   onFieldValidate: PropTypes.func,
-  changeDropDown: PropTypes.func,
-  onChange: PropTypes.func
+  changeDropDown: PropTypes.func
 }

@@ -122,6 +122,5 @@ Distribution.propTypes = {
   handleChange: PropTypes.func,
   onFieldValidate: PropTypes.func,
   changeDropDown: PropTypes.func,
-  onChange: PropTypes.func,
   changeDate: PropTypes.func
 }

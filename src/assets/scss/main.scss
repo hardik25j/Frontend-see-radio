@@ -172,3 +172,30 @@
     padding-right: 50px;
   }
 }
+
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  .record-per-page {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 10px;
+  }
+}
+
+.page-button {
+  font-size: 15px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-left: 5px;
+  outline: none;
+  border: none;
+  background-color: #f2f5f9;
+  cursor: pointer;
+}
+
+.button-active {
+  background-color: #01a1dd;
+  color: white;
+  font-weight: bold;
+}

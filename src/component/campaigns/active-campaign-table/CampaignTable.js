@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import FilterCampaign from "./FilterCampaign";
 import PersonDetail from "./PersonDetail";
 import { Link } from "react-router-dom";
+import Pagination from "../../common-component/Pagination";
+import Pagination2 from "react-js-pagination";
 
 export default class CampaignTable extends Component {
   constructor(props) {
@@ -14,6 +16,9 @@ export default class CampaignTable extends Component {
       filterBar: false,
       modal: false,
       personID: '',
+      offset: 0,
+      limit: 10,
+      totalResult: 0,
     }
     this.filterData = {
       title: '',
@@ -28,7 +33,19 @@ export default class CampaignTable extends Component {
       clientCompanyID: {}
     }
   }
+  handlePageChange(pageNumber) {
+    console.log(`active page is ${pageNumber}`);
+    this.setState({ activePage: pageNumber });
+  }
 
+  paginationFunction = (offset, limit) => {
+    if ((offset !== this.state.offset) || (limit !== this.state.limit)) {
+      this.setState({
+        offset: offset,
+        limit: limit,
+      }, () => this.getCampaignData(false))
+    }
+  }
   componentDidMount() {
     this.getCampaignData();
   }
@@ -38,7 +55,8 @@ export default class CampaignTable extends Component {
   getCampaignData = (filterObj) => {
     const getValue = ['sosID', 'clientCompanyID', 'statusWithPersonID', 'statusID'];
     let payLoad = {
-      limit: 10,
+      limit: this.state.limit,
+      offset: this.state.offset,
       salesOrgCompanyID: localStorage.companyId,
     }
     if (filterObj) {
@@ -55,7 +73,8 @@ export default class CampaignTable extends Component {
     postApi("api/campaign/getAllCampaigns", payLoad)
       .then(response => {
         this.setState({
-          data: response.data.rows
+          data: response.data.rows,
+          totalResult: response.data.count
         })
       })
       .catch((response) => {
@@ -73,7 +92,7 @@ export default class CampaignTable extends Component {
   }
 
   render() {
-    const { data, filterBar, modal, personID } = this.state;
+    const { data, filterBar, modal, personID, totalResult } = this.state;
     const columns = [{
       Header: 'ID',
       accessor: 'clientCampaignNumber'
@@ -137,6 +156,10 @@ export default class CampaignTable extends Component {
             columns={columns}
             defaultPageSize={6}
             pageSizeOptions={[10, 20, 50]}
+            paginationFunction={this.paginationFunction}
+            totalResults={totalResult}
+            pageSize={this.state.limit}
+            PaginationComponent={Pagination}
           />
         </div>
       </>

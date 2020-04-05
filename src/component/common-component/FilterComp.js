@@ -44,5 +44,5 @@ export function FilterFooter(props) {
 
 FilterFooter.propTypes = {
   handleSearch: PropTypes.func,
-  handleFilter: PropTypes.func,
+  cleanFilter: PropTypes.func,
 }
