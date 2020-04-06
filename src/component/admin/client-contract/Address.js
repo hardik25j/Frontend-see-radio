@@ -100,15 +100,14 @@ export default class Address extends Component {
         <Row>
           <Col>
             <DropDownBox
-              label={country.value ? `${country.value === 'CA' ? 'Province' : 'State'}` : 'State/Province'}
+              label={country ? `${country.value === 'CA' ? 'Province' : 'State'}` : 'State/Province'}
               name={secondary ? "stateProvinceSecondary" : "stateProvince"}
               isReq={true}
-              isDisabled={isDisabled ? true : !country.value}
+              isDisabled={isDisabled ? true : !country}
               list={this.stateProvinceList}
               value={stateProvince}
               error={isDisabled ? null : secondary ? errors.stateProvinceSecondary : errors.stateProvince}
               onChange={changeDropDown}
-
             />
           </Col>
           <Col>

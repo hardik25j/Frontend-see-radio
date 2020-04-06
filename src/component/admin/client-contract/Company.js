@@ -33,8 +33,7 @@ export default class Company extends Component {
       .catch(response => toast.error(response.errorMessage))
   }
   render() {
-    const { isReq, companyName, companyWebsite, salesPerson, changeDropDown, industry, errors,
-      handleChange, onFieldValidate } = this.props;
+    const { isReq, companyName, companyWebsite, changeDropDown, errors, handleChange, onFieldValidate } = this.props;
     return (
       <>
         <Row>
@@ -72,7 +71,6 @@ export default class Company extends Component {
               name="salesPerson"
               isReq={isReq}
               list={this.salesPersonList}
-              value={salesPerson}
               error={errors.salesPerson}
               onChange={changeDropDown}
             />
@@ -83,7 +81,6 @@ export default class Company extends Component {
               name="industry"
               isReq={isReq}
               list={this.industryList}
-              value={industry}
               error={errors.industry}
               onChange={changeDropDown}
             />
@@ -104,8 +101,6 @@ Company.propTypes = {
   isDisabled: PropTypes.bool,
   companyName: PropTypes.string,
   companyWebsite: PropTypes.string,
-  salesPerson: PropTypes.object,
-  industry: PropTypes.object,
   industryList: PropTypes.array,
   errors: PropTypes.object,
   handleChange: PropTypes.func,

@@ -65,8 +65,7 @@ export default class FilterCampaign extends Component {
   };
   render() {
     const { handleFilter } = this.props
-    const { title, statusID, statusWithPersonID, statusDueDate, startBefore, startAfter, endBefore,
-      endAfter, sosID, clientCompanyID } = this.state.filter
+    const { title, statusDueDate, startBefore, startAfter, endBefore, endAfter } = this.state.filter
     return (
       <div className="filter-sidebar">
         <FilterHeader
@@ -89,7 +88,6 @@ export default class FilterCampaign extends Component {
               label="Status"
               name="statusID"
               list={this.list}
-              value={statusID}
               onChange={this.handleChange}
             />
           </Row>
@@ -99,7 +97,6 @@ export default class FilterCampaign extends Component {
               label="Actions Required By"
               name="statusWithPersonID"
               list={this.actionRequiredPersonList}
-              value={statusWithPersonID}
               onChange={this.handleChange}
             />
           </Row>
@@ -159,7 +156,6 @@ export default class FilterCampaign extends Component {
               label="Salesperson"
               name="sosID"
               list={this.salesPersonList}
-              value={sosID}
               onChange={this.handleChange}
             />
           </Row>
@@ -169,7 +165,6 @@ export default class FilterCampaign extends Component {
               label="Advertiser"
               name="clientCompanyID"
               list={this.advertiserList}
-              value={clientCompanyID}
               onChange={this.handleChange}
             />
           </Row>

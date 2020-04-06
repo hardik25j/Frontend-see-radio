@@ -30,14 +30,14 @@ export default class ClientContract extends Component {
 				address1: '',
 				address2: '',
 				city: '',
-				country: {},
-				stateProvince: {},
+				country: null,
+				stateProvince: null,
 				postal: '',
 				address1Secondary: '',
 				address2Secondary: '',
 				citySecondary: '',
-				countrySecondary: {},
-				stateProvinceSecondary: {},
+				countrySecondary: null,
+				stateProvinceSecondary: null,
 				postalSecondary: ''
 			},
 			errors: {}
@@ -89,8 +89,8 @@ export default class ClientContract extends Component {
 			form.address1Secondary = '';
 			form.address2Secondary = '';
 			form.citySecondary = '';
-			form.countrySecondary = '';
-			form.stateProvinceSecondary = '';
+			form.countrySecondary = null;
+			form.stateProvinceSecondary = null;
 			form.postalSecondary = '';
 		}
 		this.setState({ form, addressType, businessAddress: checked });
@@ -182,7 +182,7 @@ export default class ClientContract extends Component {
 	}
 	render() {
 		const { form, errors, businessAddress } = this.state;
-		const { companyName, companyWebsite, salesPerson, industry, firstName, lastName, email, phone,
+		const { companyName, companyWebsite, firstName, lastName, email, phone,
 			firstNameSecondary, lastNameSecondary, emailSecondary, phoneSecondary, address1, address2,
 			city, country, stateProvince, postal, address1Secondary, address2Secondary, citySecondary,
 			countrySecondary, stateProvinceSecondary, postalSecondary } = form;
@@ -197,8 +197,6 @@ export default class ClientContract extends Component {
 									isReq={true}
 									companyName={companyName}
 									companyWebsite={companyWebsite}
-									salesPerson={salesPerson}
-									industry={industry}
 									errors={errors}
 									industryList={this.industryList}
 									handleChange={this.handleChange}

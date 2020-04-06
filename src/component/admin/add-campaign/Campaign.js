@@ -36,7 +36,7 @@ export default class Campaign extends Component {
   }
   render() {
     const { isReq, data, errors, handleChange, onFieldValidate, changeDropDown } = this.props;
-    const { salesPerson, advertiser, title, URL, price, description } = data;
+    const { title, URL, price, description } = data;
     return (
       <>
         <Row>
@@ -46,7 +46,6 @@ export default class Campaign extends Component {
               name="salesPerson"
               isReq={isReq}
               list={this.salesPersonList}
-              value={salesPerson}
               error={errors.salesPerson}
               onChange={changeDropDown}
             />
@@ -57,7 +56,6 @@ export default class Campaign extends Component {
               name="advertiser"
               isReq={isReq}
               list={this.advertiserList}
-              value={advertiser}
               error={errors.advertiser}
               onChange={changeDropDown}
             />

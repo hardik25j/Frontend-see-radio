@@ -37,7 +37,7 @@ export default class FilterAdvertiser extends Component {
   };
   render() {
     const { handleFilter } = this.props
-    const { keyWordID, lastCampAdd, salesPerson } = this.state.filter
+    const { keyWordID, lastCampAdd } = this.state.filter
     return (
       <div className="filter-sidebar">
         <FilterHeader
@@ -70,7 +70,6 @@ export default class FilterAdvertiser extends Component {
               label="Salesperson"
               name="salesPerson"
               list={this.list}
-              value={salesPerson}
               onChange={this.handleChange}
             />
           </Row>

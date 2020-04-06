@@ -39,7 +39,7 @@ export default class FilterCompletedCamp extends Component {
 
   render() {
     const { handleFilter } = this.props
-    const { keyWordID, salesPerson, advertiser, groupBy } = this.state.filter
+    const { keyWordID } = this.state.filter
     return (
       <div className="filter-sidebar">
         <FilterHeader
@@ -62,7 +62,6 @@ export default class FilterCompletedCamp extends Component {
               label="Salesperson"
               name="salesPerson"
               list={this.list}
-              value={salesPerson}
               onChange={this.handleChange}
             />
           </Row>
@@ -72,7 +71,6 @@ export default class FilterCompletedCamp extends Component {
               label="Advertiser"
               name="advertiser"
               list={this.list}
-              value={advertiser}
               onChange={this.handleChange}
             />
           </Row>
@@ -82,7 +80,6 @@ export default class FilterCompletedCamp extends Component {
               label="Group By"
               name="groupBy"
               list={this.list}
-              value={groupBy}
               onChange={this.handleChange}
             />
           </Row>

@@ -27,7 +27,7 @@ export default class Distribution extends Component {
   }
   render() {
     const { isReq, data, errors, handleChange, onFieldValidate, changeDropDown, changeDate } = this.props;
-    const { targetMarket, views, startDate, endDate, timeSpan, duration } = data;
+    const { views, startDate, endDate, duration } = data;
     return (
       <>
         <Row>
@@ -37,7 +37,6 @@ export default class Distribution extends Component {
               name="targetMarket"
               isReq={isReq}
               list={this.targetMarketList}
-              value={targetMarket}
               error={errors.targetMarket}
               onChange={changeDropDown}
             />
@@ -87,7 +86,6 @@ export default class Distribution extends Component {
             <DropDownBox
               label="Select"
               name="timeSpan"
-              value={timeSpan}
               list={this.timeSpanList}
               onChange={changeDropDown}
             />

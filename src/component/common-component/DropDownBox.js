@@ -4,7 +4,7 @@ import ReactSelect from 'react-select';
 import { FormGroup, Label } from 'reactstrap';
 
 export default function DropDownBox(props) {
-  const { isDisabled, list, label, name, isReq, value, onChange, error, className } = props;
+  const { isDisabled, value, list, label, name, isReq, onChange, error, className } = props;
   return (
     <FormGroup>
       <Label className="font-weight-bold">
@@ -42,7 +42,7 @@ DropDownBox.defaultProps = {
 
 DropDownBox.propTypes = {                                                                                                   //when we declare any props which is Required then must be defined their "its default value".
   name: PropTypes.string.isRequired,
-  value: PropTypes.object.isRequired,
+  value: PropTypes.object,
   isClearable: PropTypes.bool,
   isReq: PropTypes.bool,
   isClearable: PropTypes.bool,

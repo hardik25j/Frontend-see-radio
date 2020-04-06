@@ -43,8 +43,7 @@ export default class FilterCampMarket extends Component {
 
   render() {
     const { handleFilter } = this.props
-    const { keyWordID, startOnBefore, startOnAfter, finishOnBefore,
-      finishOnAfter, salesPerson, advertiser } = this.state.filter
+    const { keyWordID, startOnBefore, startOnAfter, finishOnBefore, finishOnAfter } = this.state.filter
     return (
       <div className="filter-sidebar">
         <FilterHeader
@@ -107,7 +106,6 @@ export default class FilterCampMarket extends Component {
               label="Salesperson"
               name="salesPerson"
               list={this.list}
-              value={salesPerson}
               onChange={this.handleChange}
             />
           </Row>
@@ -117,7 +115,6 @@ export default class FilterCampMarket extends Component {
               label="Advertiser"
               name="advertiser"
               list={this.list}
-              value={advertiser}
               onChange={this.handleChange}
             />
           </Row>
