@@ -40,9 +40,11 @@ class Navbar extends Component {
 					</button>
 					<div className="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul className="navbar-nav nav col-lg-10">
-							<li className="nav-link nav-item">
-								<Link style={{ color: "white" }} to="/dashboard"><FontAwesomeIcon icon={faTachometerAlt} className="mr-1" /> Dashboard</Link>
-							</li>
+							<Link style={{ color: "white" }} to="/dashboard">
+								<li className="nav-link nav-item">
+									<FontAwesomeIcon icon={faTachometerAlt} className="mr-1" /> Dashboard
+								</li>
+							</Link>
 							<li >
 								<ButtonDropdown isOpen={campaignsDropDownOpen} toggle={this.campaignToggle}>
 									<DropdownToggle color="link" className="nav-link nav-item ml-auto">
@@ -57,9 +59,11 @@ class Navbar extends Component {
 									</DropdownMenu>
 								</ButtonDropdown>
 							</li>
-							<li className="nav-link nav-item">
-								<Link style={{ color: "white" }} to="/client-report"><FontAwesomeIcon icon={faAd} className="mr-1" /> Advertiser</Link>
-							</li>
+							<Link style={{ color: "white" }} to="/client-report">
+								<li className="nav-link nav-item">
+									<FontAwesomeIcon icon={faAd} className="mr-1" /> Advertiser
+								</li>
+							</Link>
 						</ul>
 						<ul className="navbar-nav nav ml-auto">
 							<li >

@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import PrivateRoute from './component/common-component/PrivateRoute';
 import App from './App';
 import routes from './utils/routes';
+import store from './reducer/store';
 
 import './index.css';
 import './assets/scss/main.scss';
@@ -15,24 +16,28 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'react-toastify/dist/ReactToastify.css';
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-table/react-table.css'
+import { Provider } from 'react-redux';
 
+const globalStore = store({});
 
 ReactDOM.render(
-	<Router>
-		<div>
-			<ToastContainer />
-			<Switch>
-				<PrivateRoute exact path='/' component={App} />
-				{
-					routes.map((item, i) => {
-						if (item.route === "private")
-							return <PrivateRoute key={i} path={item.path} component={item.component} />
-						return <Route key={i} path={item.path} component={item.component} />
-					})
-				}
-			</Switch>
-		</div>
-	</Router>
+	<Provider store={globalStore}>
+		<Router>
+			<div>
+				<ToastContainer />
+				<Switch>
+					<PrivateRoute exact path='/' component={App} />
+					{
+						routes.map((item, i) => {
+							if (item.route === "private")
+								return <PrivateRoute key={i} path={item.path} component={item.component} />
+							return <Route key={i} path={item.path} component={item.component} />
+						})
+					}
+				</Switch>
+			</div>
+		</Router>
+	</Provider>
 	, document.getElementById('root')
 );
 

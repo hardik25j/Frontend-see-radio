@@ -6,9 +6,12 @@ import FilterCampaign from "./FilterCampaign";
 import PersonDetail from "./PersonDetail";
 import { Link } from "react-router-dom";
 import Pagination from "../../common-component/Pagination";
-import Pagination2 from "react-js-pagination";
+import { connect } from "react-redux";
+import * as action from "../../../action/action";
+import Loader from "../../../Loader";
 
-export default class CampaignTable extends Component {
+
+class CampaignTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,10 +36,6 @@ export default class CampaignTable extends Component {
       clientCompanyID: {}
     }
   }
-  handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
-    this.setState({ activePage: pageNumber });
-  }
 
   paginationFunction = (offset, limit) => {
     if ((offset !== this.state.offset) || (limit !== this.state.limit)) {
@@ -48,9 +47,6 @@ export default class CampaignTable extends Component {
   }
   componentDidMount() {
     this.getCampaignData();
-  }
-  resetFilter = () => {
-
   }
   getCampaignData = (filterObj) => {
     const getValue = ['sosID', 'clientCompanyID', 'statusWithPersonID', 'statusID'];
@@ -70,28 +66,24 @@ export default class CampaignTable extends Component {
         }
       })
     }
+    this.props.dispatch({ type: action.API_LOADER_ACTIVE });
     postApi("api/campaign/getAllCampaigns", payLoad)
       .then(response => {
         this.setState({
           data: response.data.rows,
           totalResult: response.data.count
-        })
+        }, () => this.props.dispatch({ type: action.API_LOADER_INACTIVE }))
       })
       .catch((response) => {
         response && toast.error(response.errorMessage);
       });
   }
-  handleFilter = () => {
-    this.setState({ filterBar: !this.state.filterBar });
-  }
-  openModal = (id) => {
-    this.setState({ personID: id, modal: !this.state.modal })
-  }
-  toggleModal = () => {
-    this.setState({ modal: !this.state.modal })
-  }
+  handleFilter = () => this.setState({ filterBar: !this.state.filterBar })
+  openModal = (id) => this.setState({ personID: id, modal: !this.state.modal })
+  toggleModal = () => this.setState({ modal: !this.state.modal })
 
   render() {
+    const { apiLoader } = this.props.loader;
     const { data, filterBar, modal, personID, totalResult } = this.state;
     const columns = [{
       Header: 'ID',
@@ -138,31 +130,40 @@ export default class CampaignTable extends Component {
 
     return (
       <>
-        <PersonDetail modal={modal} id={personID} toggle={this.toggleModal} />
-        {filterBar &&
-          <FilterCampaign
-            filterData={this.filterData}
-            handleFilter={this.handleFilter}
-            handleSearch={this.getCampaignData}
-          />
+        {
+          apiLoader ? <Loader />
+            :
+            <>
+              <PersonDetail modal={modal} id={personID} toggle={this.toggleModal} />
+              {filterBar &&
+                <FilterCampaign
+                  filterData={this.filterData}
+                  handleFilter={this.handleFilter}
+                  handleSearch={this.getCampaignData}
+                />
+              }
+              <div className="campaign-container">
+                <div className="filter-title">
+                  <button className="filter-button" onClick={this.handleFilter}>Search Filters</button>
+                  <div className="title">Active Campaigns/Orders</div>
+                </div>
+                < ReactTable
+                  data={data}
+                  columns={columns}
+                  defaultPageSize={10}
+                  pageSizeOptions={[10, 20, 50]}
+                  paginationFunction={this.paginationFunction}
+                  totalResults={totalResult}
+                  pageSize={this.state.limit}
+                  PaginationComponent={Pagination}
+                />
+              </div>
+            </>
         }
-        <div className="campaign-container">
-          <div className="filter-title">
-            <button className="filter-button" onClick={this.handleFilter}>Search Filters</button>
-            <div className="title">Active Campaigns/Orders</div>
-          </div>
-          <ReactTable
-            data={data}
-            columns={columns}
-            defaultPageSize={6}
-            pageSizeOptions={[10, 20, 50]}
-            paginationFunction={this.paginationFunction}
-            totalResults={totalResult}
-            pageSize={this.state.limit}
-            PaginationComponent={Pagination}
-          />
-        </div>
       </>
     );
   }
 }
+
+const select = store => store;
+export default connect(select)(CampaignTable);

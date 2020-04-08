@@ -189,6 +189,11 @@ export default class ClientContract extends Component {
 		return (
 			<>
 				<Row className="d-flex justify-content-center">
+					<div className="steps-container">
+						<div className="step step-active">step 1</div>
+						<div className="step">step 2</div>
+						<div className="step">step 3</div>
+					</div>
 					<Col lg="11" className="mt-5 px-4">
 						<div className="title-header">Add New Advertiser</div>
 						<Card className="py-5 px-3">
