@@ -7,6 +7,7 @@ import DropDownBox from '../../common-component/DropDownBox';
 import { FilterHeader, FilterFooter } from "../../common-component/FilterComp";
 import { getApi, postApi } from "../../../utils/interceptors";
 import { toast } from "react-toastify";
+import { filterStatus } from "../../../staticData";
 
 export default class FilterCampaign extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ export default class FilterCampaign extends Component {
     this.salesPersonList = [];
     this.advertiserList = [];
     this.actionRequiredPersonList = [];
+    this.statusList = filterStatus;
   }
   componentDidMount() {
     getApi('api/company/persons')
@@ -87,7 +89,7 @@ export default class FilterCampaign extends Component {
               className="w"
               label="Status"
               name="statusID"
-              list={this.list}
+              list={this.statusList}
               onChange={this.handleChange}
             />
           </Row>

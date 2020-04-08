@@ -66,7 +66,8 @@ class CampaignTable extends Component {
         }
       })
     }
-    this.props.dispatch({ type: action.API_LOADER_ACTIVE });
+
+    this.props.dispatch({ type: action.API_LOADER_ACTIVE })
     postApi("api/campaign/getAllCampaigns", payLoad)
       .then(response => {
         this.setState({
@@ -130,36 +131,34 @@ class CampaignTable extends Component {
 
     return (
       <>
-        {
-          apiLoader ? <Loader />
-            :
-            <>
-              <PersonDetail modal={modal} id={personID} toggle={this.toggleModal} />
-              {filterBar &&
-                <FilterCampaign
-                  filterData={this.filterData}
-                  handleFilter={this.handleFilter}
-                  handleSearch={this.getCampaignData}
-                />
-              }
-              <div className="campaign-container">
-                <div className="filter-title">
-                  <button className="filter-button" onClick={this.handleFilter}>Search Filters</button>
-                  <div className="title">Active Campaigns/Orders</div>
-                </div>
-                < ReactTable
-                  data={data}
-                  columns={columns}
-                  defaultPageSize={10}
-                  pageSizeOptions={[10, 20, 50]}
-                  paginationFunction={this.paginationFunction}
-                  totalResults={totalResult}
-                  pageSize={this.state.limit}
-                  PaginationComponent={Pagination}
-                />
-              </div>
-            </>
+        <PersonDetail modal={modal} id={personID} toggle={this.toggleModal} />
+        {filterBar &&
+          <FilterCampaign
+            filterData={this.filterData}
+            handleFilter={this.handleFilter}
+            handleSearch={this.getCampaignData}
+          />
         }
+        <div className="campaign-container">
+          <div className="filter-title">
+            <button className="filter-button" onClick={this.handleFilter}>Search Filters</button>
+            <div>Total Results : {totalResult}</div>
+            <div className="title">Active Campaigns/Orders</div>
+          </div>
+          < ReactTable
+            data={data}
+            loading={apiLoader}
+            loadingText="Loading........"
+            // LoadingComponent={Loader}
+            columns={columns}
+            defaultPageSize={10}
+            pageSizeOptions={[10, 20, 50]}
+            paginationFunction={this.paginationFunction}
+            totalResults={totalResult}
+            pageSize={this.state.limit}
+            PaginationComponent={Pagination}
+          />
+        </div>
       </>
     );
   }

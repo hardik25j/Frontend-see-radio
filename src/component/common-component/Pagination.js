@@ -70,6 +70,7 @@ export default class Pagination extends Component {
   render() {
     const { PageButtonComponent = defaultButton, previousText } = this.props;
     const { visiblePages, activePage, pages, resultPages, resultSelectedPage } = this.state;
+
     return (
       <>
         <div className="pagination-container">
