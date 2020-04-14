@@ -14,8 +14,10 @@ import InputBox from './common-component/InpuxBox';
 import { postApi } from '../utils/interceptors';
 import { checkValidation, getRegExp } from "./common-component/Validation";
 import logo from '../assets/image/logo.png';
+import { connect } from "react-redux";
+import * as action from "../action/action";
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,10 +29,10 @@ export default class Login extends Component {
     }
   }
   componentDidMount() {
-    if (isLogin()) {
+    if (isLogin())
       this.props.history.push("/dashboard");
-    }
   }
+
   handleChange = (e) => {
     const { form } = this.state;
     const { name, value } = e.target;
@@ -68,6 +70,7 @@ export default class Login extends Component {
       this.setState({ errors: validationError });
     else {
       let obj = this.state.form;
+      this.props.dispatch({ type: action.API_LOADER_ACTIVE })
       postApi("pub/login", obj)
         .then(response => {
           const { personData, token } = response.data;
@@ -144,3 +147,6 @@ export default class Login extends Component {
     );
   }
 };
+
+const select = store => store;
+export default connect(select)(Login);

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import Pagination from "../../common-component/Pagination";
 import { connect } from "react-redux";
 import * as action from "../../../action/action";
-import Loader from "../../../Loader";
+import Loader from "../../common-component/Loader";
 
 
 class CampaignTable extends Component {
@@ -75,9 +75,7 @@ class CampaignTable extends Component {
           totalResult: response.data.count
         }, () => this.props.dispatch({ type: action.API_LOADER_INACTIVE }))
       })
-      .catch((response) => {
-        response && toast.error(response.errorMessage);
-      });
+      .catch((response) => response && toast.error(response.errorMessage));
   }
   handleFilter = () => this.setState({ filterBar: !this.state.filterBar })
   openModal = (id) => this.setState({ personID: id, modal: !this.state.modal })
@@ -148,8 +146,7 @@ class CampaignTable extends Component {
           < ReactTable
             data={data}
             loading={apiLoader}
-            loadingText="Loading........"
-            // LoadingComponent={Loader}
+            LoadingComponent={Loader}
             columns={columns}
             defaultPageSize={10}
             pageSizeOptions={[10, 20, 50]}

@@ -41,7 +41,7 @@ InputBox.defaultProps = {
 InputBox.propTypes = {
 	type: PropTypes.string.isRequired,                                                                                                    //when we declare any props which is Required then must be defined their "its default value".
 	name: PropTypes.string.isRequired,
-	value: PropTypes.string,
+	value: PropTypes.node,
 	label: PropTypes.string,
 	isReq: PropTypes.bool,
 	placeholder: PropTypes.node,

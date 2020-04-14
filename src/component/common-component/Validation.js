@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export function checkValidation(errors, data, notReq = null) {
   const finalErrors = {};
   if (!notReq)
@@ -8,7 +10,7 @@ export function checkValidation(errors, data, notReq = null) {
     }
   });
   Object.keys(errors).map((key) => {
-    if (errors[key] !== "") {
+    if (errors[key]) {
       finalErrors[key] = errors[key]
     }
   });
@@ -74,4 +76,25 @@ export function phoneNumberFromatter(value) {
     input = '(' + input.substring(0, 3) + ') ' + input.substring(3, 6) + ' - ' + input.substring(6, 10);
   }
   return input;
+}
+
+export const getDateDiff = (startDate, endDate) => {
+  const mStartDate = moment(startDate);
+  const mEndDate = moment(endDate);
+  return (mEndDate.diff(mStartDate, "days"))
+}
+
+export const daysDuration = (date, days) => {
+  let endDate = moment(new Date(date));
+  return new Date(endDate.add(days, 'days'));
+}
+
+export const weeksDuration = (date, weeks) => {
+  let endDate = moment(new Date(date));
+  return new Date(endDate.add(weeks, 'weeks'));
+}
+
+export const monthsDuration = (date, months) => {
+  let endDate = moment(new Date(date));
+  return new Date(endDate.add(months, 'months'));
 }

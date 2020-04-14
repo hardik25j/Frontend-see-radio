@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 const baseUrl = "http://localhost:3005/";
-const headers = { 'x-token': localStorage.token }
+const token = { 'x-token': localStorage.token }
 
-export function postApi(url, obj) {
+export function postApi(url, obj, headers = token) {
   return axios.post(baseUrl + url, obj, { headers })
     .then(response => {
       return response.data;
@@ -12,7 +12,7 @@ export function postApi(url, obj) {
     });
 }
 
-export function getApi(url) {
+export function getApi(url, headers = token) {
 
   return axios.get(baseUrl + url, { headers })
     .then(response => {

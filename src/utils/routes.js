@@ -1,5 +1,4 @@
-import DashBoard from "../component/DashBoard";
-import ClientContract from "../component/admin/client-contract/ClientContract";
+import DashBoard from "../component/dashboard/DashBoard";
 import AddCampaign from "../component/admin/add-campaign/AddCampaign";
 import UploadFiles from "../component/admin/UploadFiles";
 import CampaignTable from "../component/campaigns/active-campaign-table/CampaignTable";
@@ -8,6 +7,7 @@ import CampaignMarketTable from "../component/campaigns/campaign-in-market/Campa
 import CompletedCampaignTable from "../component/campaigns/completed-camp/CompletedCampaignTable";
 import Login from "../component/Login";
 import CampaignDetail from "../component/campaigns/active-campaign-table/CampaignDetail";
+import AddAdvertiser from "../component/admin/AddAdvertiser";
 
 const routes = [
 	{
@@ -25,8 +25,8 @@ const routes = [
 	{
 		route: "private",
 		path: "/client-contract",
-		name: "advertiser",
-		component: ClientContract,
+		name: "addAdvertiser",
+		component: AddAdvertiser,
 	},
 	{
 		route: "private",

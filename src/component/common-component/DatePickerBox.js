@@ -34,7 +34,7 @@ DatePickerBox.propTypes = {
   label: PropTypes.string,                                                                                                   //when we declare any props which is Required then must be defined their "its default value".
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.node,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.instanceOf(Date),
   error: PropTypes.string,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,

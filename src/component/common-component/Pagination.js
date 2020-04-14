@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 
-
 const defaultButton = props => <button {...props}>{props.children}</button>;
 
 export default class Pagination extends Component {

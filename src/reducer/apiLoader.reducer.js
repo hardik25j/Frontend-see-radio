@@ -1,8 +1,8 @@
-const initialSate = {
+const initialState = {
   apiLoader: false
 };
 
-export default (state = initialSate, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case 'API_LOADER_INACTIVE':
       return { ...state, apiLoader: false }

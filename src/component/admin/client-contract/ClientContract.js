@@ -7,8 +7,11 @@ import InputBox from "../../common-component/InpuxBox";
 import { checkValidation, getRegExp } from "../../common-component/Validation";
 import { postApi } from "../../../utils/interceptors";
 import { toast } from 'react-toastify';
+import { connect } from "react-redux";
+import * as action from "../../../action/action";
+import Loader from "../../common-component/Loader";
 
-export default class ClientContract extends Component {
+class ClientContract extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -63,6 +66,7 @@ export default class ClientContract extends Component {
 		}
 		this.setState({ form });
 	};
+
 	changeDropDown = (e) => {
 		const { errors } = this.state;
 		const { name, value } = e.target;
@@ -72,6 +76,7 @@ export default class ClientContract extends Component {
 		errors[name] = errorMsg;
 		this.setState({ errors }, () => this.handleChange(e));
 	}
+
 	checkHandler = (e) => {
 		const { checked } = e.target;
 		let { form, addressType } = this.state;
@@ -95,6 +100,7 @@ export default class ClientContract extends Component {
 		}
 		this.setState({ form, addressType, businessAddress: checked });
 	}
+
 	onFieldValidate = (e) => {
 		const { name, value, title, attributes } = e.target;
 		const { errors } = this.state;
@@ -111,12 +117,15 @@ export default class ClientContract extends Component {
 		errors[name] = errorMsg;
 		this.setState({ errors });
 	};
+
 	cleanForm = () => {
 		const { form } = this.state;
 		Object.keys(form).map((key) => form[key] = '')
 		this.setState({ errors: {}, form });
 	};
+
 	onSubmitForm = () => {
+		const { dispatch } = this.props;
 		const { form, errors } = this.state;
 		const notReq = ['firstNameSecondary', 'lastNameSecondary', 'emailSecondary',
 			'phoneSecondary', 'address2', 'address2Secondary'];
@@ -125,12 +134,18 @@ export default class ClientContract extends Component {
 		if (Object.keys(validationError).length !== 0)
 			this.setState({ errors: validationError });
 		else {
+			this.props.dispatch({ type: action.API_LOADER_ACTIVE })
 			const objData = this.setterData();
 			postApi('api/company/client', objData)
 				.then(() => toast.success("form submitted"))
+				.then(() => {
+					dispatch(action.stepForm(form.firstName))
+					dispatch({ type: action.STEP })
+				})
 				.catch(response => toast.error(response.errorMessage))
 		}
 	};
+
 	setterData = () => {
 		const { form, businessAddress, addressType } = this.state;
 		const { companyName, companyWebsite, salesPerson, firstName, lastName, email, phone,
@@ -180,111 +195,113 @@ export default class ClientContract extends Component {
 		}
 		return obj;
 	}
+	
 	render() {
+		const { apiLoader } = this.props.loader;
 		const { form, errors, businessAddress } = this.state;
 		const { companyName, companyWebsite, firstName, lastName, email, phone,
 			firstNameSecondary, lastNameSecondary, emailSecondary, phoneSecondary, address1, address2,
 			city, country, stateProvince, postal, address1Secondary, address2Secondary, citySecondary,
 			countrySecondary, stateProvinceSecondary, postalSecondary } = form;
 		return (
-			<>
-				<Row className="d-flex justify-content-center">
-					<div className="steps-container">
-						<div className="step step-active">step 1</div>
-						<div className="step">step 2</div>
-						<div className="step">step 3</div>
-					</div>
-					<Col lg="11" className="mt-5 px-4">
-						<div className="title-header">Add New Advertiser</div>
-						<Card className="py-5 px-3">
-							<CardBody>
-								<Company
-									isReq={true}
-									companyName={companyName}
-									companyWebsite={companyWebsite}
-									errors={errors}
-									industryList={this.industryList}
-									handleChange={this.handleChange}
-									changeDropDown={this.changeDropDown}
-									onFieldValidate={this.onFieldValidate}
-								/>
-								<div className="form-title">Primary Contact</div>
-								<Contact
-									isReq={true}
-									firstName={firstName}
-									lastName={lastName}
-									email={email}
-									phone={phone}
-									errors={errors}
-									handleChange={this.handleChange}
-									onFieldValidate={this.onFieldValidate}
-								/>
-								<div className="form-title">Secondary Contact (Billing - Optional)</div>
-								<Contact
-									isReq={false}
-									secondary={true}
-									firstName={firstNameSecondary}
-									lastName={lastNameSecondary}
-									email={emailSecondary}
-									phone={phoneSecondary}
-									errors={errors}
-									handleChange={this.handleChange}
-									onFieldValidate={this.onFieldValidate}
-								/>
-								<div className="form-title">Business Address</div>
-								<Address
-									isDisabled={false}
-									address1={address1}
-									address2={address2}
-									city={city}
-									country={country}
-									stateProvince={stateProvince}
-									postal={postal}
-									errors={errors}
-									countryList={this.countryList}
-									changeDropDown={this.changeDropDown}
-									handleChange={this.handleChange}
-									onFieldValidate={this.onFieldValidate}
-								/>
-								<div className="form-title">Billing Address
+			<>{
+				apiLoader
+					? <Loader />
+					: <Row className="d-flex justify-content-center">
+						<Col lg="11" className="mt-5 px-4">
+							<div className="title-header">Add New Advertiser</div>
+							<Card className="py-5 px-3">
+								<CardBody>
+									<Company
+										isReq={true}
+										companyName={companyName}
+										companyWebsite={companyWebsite}
+										errors={errors}
+										industryList={this.industryList}
+										handleChange={this.handleChange}
+										changeDropDown={this.changeDropDown}
+										onFieldValidate={this.onFieldValidate}
+									/>
+									<div className="form-title">Primary Contact</div>
+									<Contact
+										isReq={true}
+										firstName={firstName}
+										lastName={lastName}
+										email={email}
+										phone={phone}
+										errors={errors}
+										handleChange={this.handleChange}
+										onFieldValidate={this.onFieldValidate}
+									/>
+									<div className="form-title">Secondary Contact (Billing - Optional)</div>
+									<Contact
+										isReq={false}
+										secondary={true}
+										firstName={firstNameSecondary}
+										lastName={lastNameSecondary}
+										email={emailSecondary}
+										phone={phoneSecondary}
+										errors={errors}
+										handleChange={this.handleChange}
+										onFieldValidate={this.onFieldValidate}
+									/>
+									<div className="form-title">Business Address</div>
+									<Address
+										isDisabled={false}
+										address1={address1}
+										address2={address2}
+										city={city}
+										country={country}
+										stateProvince={stateProvince}
+										postal={postal}
+										errors={errors}
+										countryList={this.countryList}
+										changeDropDown={this.changeDropDown}
+										handleChange={this.handleChange}
+										onFieldValidate={this.onFieldValidate}
+									/>
+									<div className="form-title">Billing Address
 									<input type="checkbox" className="checkbox" name="businessAddress" onChange={this.checkHandler} />
 									Same as Business Address
 								</div>
-								<Address
-									secondary={true}
-									isDisabled={businessAddress ? true : false}
-									address1={address1Secondary}
-									address2={address2Secondary}
-									city={citySecondary}
-									country={countrySecondary}
-									stateProvince={stateProvinceSecondary}
-									postal={postalSecondary}
-									errors={errors}
-									changeDropDown={this.changeDropDown}
-									handleChange={this.handleChange}
-									onFieldValidate={this.onFieldValidate}
-								/>
-								<Row className="sumbmit-buttons">
-									<InputBox
-										type="button"
-										name="cancel"
-										className="btn btn-outline-secondary button"
-										value="Cancel"
-										onClick={this.cleanForm}
+									<Address
+										secondary={true}
+										isDisabled={businessAddress ? true : false}
+										address1={address1Secondary}
+										address2={address2Secondary}
+										city={citySecondary}
+										country={countrySecondary}
+										stateProvince={stateProvinceSecondary}
+										postal={postalSecondary}
+										errors={errors}
+										changeDropDown={this.changeDropDown}
+										handleChange={this.handleChange}
+										onFieldValidate={this.onFieldValidate}
 									/>
-									<InputBox
-										type="button"
-										name="next"
-										className="btn btn-primary button"
-										value="Next"
-										onClick={this.onSubmitForm}
-									/>
-								</Row>
-							</CardBody>
-						</Card>
-					</Col>
-				</Row>
+									<Row className="sumbmit-buttons">
+										<InputBox
+											type="button"
+											name="cancel"
+											className="btn btn-outline-secondary button"
+											value="Cancel"
+											onClick={this.cleanForm}
+										/>
+										<InputBox
+											type="button"
+											name="next"
+											className="btn btn-primary button"
+											value="Next"
+											onClick={this.onSubmitForm}
+										/>
+									</Row>
+								</CardBody>
+							</Card>
+						</Col>
+					</Row>
+			}
 			</>
 		);
 	}
 }
+const select = store => store;
+export default connect(select)(ClientContract);
