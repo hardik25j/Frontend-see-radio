@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { postApi } from '../../utils/interceptors';
 import { toast } from 'react-toastify';
 import { Pie } from 'react-chartjs-2';
+
+import { postApi } from '../../utils/interceptors';
 import { getChartLabels } from "../../utils";
 
 let chartDetails = {};

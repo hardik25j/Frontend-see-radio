@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
-import { postApi } from "../../utils/interceptors";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
-import * as action from "../../action/action";
+
 import Loader from "../common-component/Loader";
-import { Link } from "react-router-dom";
+import { postApi } from "../../utils/interceptors";
+import * as action from "../../action/action";
 import { getStatus } from "../../utils";
 
 class ToDoList extends Component {

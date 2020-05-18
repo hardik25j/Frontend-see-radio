@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import { Row, Col, Card, CardBody } from "reactstrap";
-import Campaign from "./Campaign";
-import Distribution from "./Distribution";
-import InputBox from "../../common-component/InpuxBox";
-import {
-  checkValidation, setterErrorMsg, getDateDiff, daysDuration,
-  weeksDuration, monthsDuration
-} from "../../common-component/Validation";
-import { postApi } from "../../../utils/interceptors";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
-import * as action from "../../../action/action";
-import Loader from "../../common-component/Loader";
 import { withRouter } from "react-router-dom";
+
+import Campaign from "./Campaign";
+import Distribution from "./Distribution";
+import Loader from "../../common-component/Loader";
+import InputBox from "../../common-component/InpuxBox";
+import {
+  checkValidation, setterErrorMsg, getDateDiff, daysDuration, weeksDuration, monthsDuration
+} from "../../common-component/Validation";
+import { postApi } from "../../../utils/interceptors";
+import * as action from "../../../action/action";
 
 class AddCampaign extends Component {
   constructor(props) {
@@ -56,7 +56,7 @@ class AddCampaign extends Component {
     errors[name] = errorMsg;
     this.setState({ errors }, () => this.handleChange(e));
   }
-  
+
   changeDate = (date, name) => {
     const { form } = this.state;
     this.setState({
@@ -166,56 +166,52 @@ class AddCampaign extends Component {
     const { name } = this.props.form;
     const { form, errors } = this.state;
     return (
-      <>
-        {
-          apiLoader ? <Loader /> :
-            <Row className="d-flex justify-content-center">
-              <Col lg="11" className="mt-5 px-4">
-                <div className="title-header">{`Add New Campaign ${name ? name : ''}`}</div>
-                <Card >
-                  <CardBody>
-                    <div className="form-title">Campaign</div>
-                    <Campaign
-                      isReq={true}
-                      data={form}
-                      errors={errors}
-                      handleChange={this.handleChange}
-                      changeDropDown={this.changeDropDown}
-                      onFieldValidate={this.onFieldValidate}
-                    />
-                    <div className="form-title">Distribution</div>
-                    <Distribution
-                      isReq={true}
-                      data={form}
-                      errors={errors}
-                      handleChange={this.handleChange}
-                      changeDropDown={this.changeDropDown}
-                      changeDate={this.changeDate}
-                      changeDuration={this.changeDuration}
-                      onFieldValidate={this.onFieldValidate}
-                    />
-                    <Row className="sumbmit-buttons">
-                      <InputBox
-                        type="button"
-                        name="cancel"
-                        className="btn btn-outline-secondary button"
-                        value="Cancel"
-                        onClick={this.cleanForm}
-                      />
-                      <InputBox
-                        type="button"
-                        name="next"
-                        className="btn btn-primary button"
-                        value="Next"
-                        onClick={this.onSubmitForm}
-                      />
-                    </Row>
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>
-        }
-      </>
+      apiLoader ? <Loader /> :
+        <Row className="d-flex justify-content-center">
+          <Col lg="11" className="mt-5 px-4">
+            <div className="title-header">{`Add New Campaign ${name ? name : ''}`}</div>
+            <Card >
+              <CardBody>
+                <div className="form-title">Campaign</div>
+                <Campaign
+                  isReq={true}
+                  data={form}
+                  errors={errors}
+                  handleChange={this.handleChange}
+                  changeDropDown={this.changeDropDown}
+                  onFieldValidate={this.onFieldValidate}
+                />
+                <div className="form-title">Distribution</div>
+                <Distribution
+                  isReq={true}
+                  data={form}
+                  errors={errors}
+                  handleChange={this.handleChange}
+                  changeDropDown={this.changeDropDown}
+                  changeDate={this.changeDate}
+                  changeDuration={this.changeDuration}
+                  onFieldValidate={this.onFieldValidate}
+                />
+                <Row className="sumbmit-buttons">
+                  <InputBox
+                    type="button"
+                    name="cancel"
+                    className="btn btn-outline-secondary button"
+                    value="Cancel"
+                    onClick={this.cleanForm}
+                  />
+                  <InputBox
+                    type="button"
+                    name="next"
+                    className="btn btn-primary button"
+                    value="Next"
+                    onClick={this.onSubmitForm}
+                  />
+                </Row>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
     );
   }
 }

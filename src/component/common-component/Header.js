@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-
-import logo from '../../assets/image/logo.png';
-import { logOut, getRoleCode } from '../../utils';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faBell, faUser, faLock, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import Navbar from './Navbar';
 import { withRouter } from "react-router-dom";
+
+import Navbar from './Navbar';
+import logo from '../../assets/image/logo.png';
+import { logOut, getRoleCode } from '../../utils';
 
 function Header(props) {
 	const [dropdownOpen, setDropdownOpen] = useState(false);

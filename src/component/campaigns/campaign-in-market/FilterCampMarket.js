@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { Row } from "reactstrap";
+
 import { FilterHeader, FilterFooter } from "../../common-component/FilterComp";
 import InputBox from "../../common-component/InpuxBox";
 import DropDownBox from '../../common-component/DropDownBox';

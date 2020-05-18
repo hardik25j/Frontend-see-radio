@@ -1,9 +1,10 @@
 import React from 'react';
-import ClientContract from './client-contract/ClientContract';
 import { connect } from 'react-redux';
+import { Row } from 'reactstrap';
+
+import ClientContract from './client-contract/ClientContract';
 import AddCampaign from './add-campaign/AddCampaign';
 import UploadFiles from './UploadFiles';
-import { Row } from 'reactstrap';
 
 function AddAdvertiser(props) {
   const stage = [

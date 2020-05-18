@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { HorizontalBar } from 'react-chartjs-2';
-import { postApi } from '../../utils/interceptors';
 import { toast } from 'react-toastify';
+
+import { postApi } from '../../utils/interceptors';
 import { getStatus } from '../../utils';
 
 let chartDetails = {};

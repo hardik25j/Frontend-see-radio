@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { Row, Col, Card, CardBody } from "reactstrap";
+import { toast } from 'react-toastify';
+import { connect } from "react-redux";
+
 import Contact from "./Contact";
 import Address from "./Address";
 import Company from "./Company";
+import Loader from "../../common-component/Loader";
 import InputBox from "../../common-component/InpuxBox";
 import { checkValidation, getRegExp } from "../../common-component/Validation";
 import { postApi } from "../../../utils/interceptors";
-import { toast } from 'react-toastify';
-import { connect } from "react-redux";
 import * as action from "../../../action/action";
-import Loader from "../../common-component/Loader";
 
 class ClientContract extends Component {
 	constructor(props) {
@@ -151,7 +152,8 @@ class ClientContract extends Component {
 		const { companyName, companyWebsite, salesPerson, firstName, lastName, email, phone,
 			firstNameSecondary, lastNameSecondary, emailSecondary, phoneSecondary, address1, address2,
 			city, country, stateProvince, postal, address1Secondary, address2Secondary, citySecondary,
-			countrySecondary, stateProvinceSecondary, postalSecondary } = form;
+			countrySecondary, stateProvinceSecondary, postalSecondary
+		} = form;
 		const obj = {
 			companyName: companyName,
 			companyWebsite: companyWebsite,
@@ -195,7 +197,7 @@ class ClientContract extends Component {
 		}
 		return obj;
 	}
-	
+
 	render() {
 		const { apiLoader } = this.props.loader;
 		const { form, errors, businessAddress } = this.state;
@@ -204,102 +206,99 @@ class ClientContract extends Component {
 			city, country, stateProvince, postal, address1Secondary, address2Secondary, citySecondary,
 			countrySecondary, stateProvinceSecondary, postalSecondary } = form;
 		return (
-			<>{
-				apiLoader
-					? <Loader />
-					: <Row className="d-flex justify-content-center">
-						<Col lg="11" className="mt-5 px-4">
-							<div className="title-header">Add New Advertiser</div>
-							<Card className="py-5 px-3">
-								<CardBody>
-									<Company
-										isReq={true}
-										companyName={companyName}
-										companyWebsite={companyWebsite}
-										errors={errors}
-										industryList={this.industryList}
-										handleChange={this.handleChange}
-										changeDropDown={this.changeDropDown}
-										onFieldValidate={this.onFieldValidate}
-									/>
-									<div className="form-title">Primary Contact</div>
-									<Contact
-										isReq={true}
-										firstName={firstName}
-										lastName={lastName}
-										email={email}
-										phone={phone}
-										errors={errors}
-										handleChange={this.handleChange}
-										onFieldValidate={this.onFieldValidate}
-									/>
-									<div className="form-title">Secondary Contact (Billing - Optional)</div>
-									<Contact
-										isReq={false}
-										secondary={true}
-										firstName={firstNameSecondary}
-										lastName={lastNameSecondary}
-										email={emailSecondary}
-										phone={phoneSecondary}
-										errors={errors}
-										handleChange={this.handleChange}
-										onFieldValidate={this.onFieldValidate}
-									/>
-									<div className="form-title">Business Address</div>
-									<Address
-										isDisabled={false}
-										address1={address1}
-										address2={address2}
-										city={city}
-										country={country}
-										stateProvince={stateProvince}
-										postal={postal}
-										errors={errors}
-										countryList={this.countryList}
-										changeDropDown={this.changeDropDown}
-										handleChange={this.handleChange}
-										onFieldValidate={this.onFieldValidate}
-									/>
-									<div className="form-title">Billing Address
+			apiLoader
+				? <Loader />
+				: <Row className="d-flex justify-content-center">
+					<Col lg="11" className="mt-5 px-4">
+						<div className="title-header">Add New Advertiser</div>
+						<Card className="py-5 px-3">
+							<CardBody>
+								<Company
+									isReq={true}
+									companyName={companyName}
+									companyWebsite={companyWebsite}
+									errors={errors}
+									industryList={this.industryList}
+									handleChange={this.handleChange}
+									changeDropDown={this.changeDropDown}
+									onFieldValidate={this.onFieldValidate}
+								/>
+								<div className="form-title">Primary Contact</div>
+								<Contact
+									isReq={true}
+									firstName={firstName}
+									lastName={lastName}
+									email={email}
+									phone={phone}
+									errors={errors}
+									handleChange={this.handleChange}
+									onFieldValidate={this.onFieldValidate}
+								/>
+								<div className="form-title">Secondary Contact (Billing - Optional)</div>
+								<Contact
+									isReq={false}
+									secondary={true}
+									firstName={firstNameSecondary}
+									lastName={lastNameSecondary}
+									email={emailSecondary}
+									phone={phoneSecondary}
+									errors={errors}
+									handleChange={this.handleChange}
+									onFieldValidate={this.onFieldValidate}
+								/>
+								<div className="form-title">Business Address</div>
+								<Address
+									isDisabled={false}
+									address1={address1}
+									address2={address2}
+									city={city}
+									country={country}
+									stateProvince={stateProvince}
+									postal={postal}
+									errors={errors}
+									countryList={this.countryList}
+									changeDropDown={this.changeDropDown}
+									handleChange={this.handleChange}
+									onFieldValidate={this.onFieldValidate}
+								/>
+								<div className="form-title">Billing Address
 									<input type="checkbox" className="checkbox" name="businessAddress" onChange={this.checkHandler} />
 									Same as Business Address
 								</div>
-									<Address
-										secondary={true}
-										isDisabled={businessAddress ? true : false}
-										address1={address1Secondary}
-										address2={address2Secondary}
-										city={citySecondary}
-										country={countrySecondary}
-										stateProvince={stateProvinceSecondary}
-										postal={postalSecondary}
-										errors={errors}
-										changeDropDown={this.changeDropDown}
-										handleChange={this.handleChange}
-										onFieldValidate={this.onFieldValidate}
+								<Address
+									secondary={true}
+									isDisabled={businessAddress ? true : false}
+									address1={address1Secondary}
+									address2={address2Secondary}
+									city={citySecondary}
+									country={countrySecondary}
+									stateProvince={stateProvinceSecondary}
+									postal={postalSecondary}
+									errors={errors}
+									changeDropDown={this.changeDropDown}
+									handleChange={this.handleChange}
+									onFieldValidate={this.onFieldValidate}
+								/>
+								<Row className="sumbmit-buttons">
+									<InputBox
+										type="button"
+										name="cancel"
+										className="btn btn-outline-secondary button"
+										value="Cancel"
+										onClick={this.cleanForm}
 									/>
-									<Row className="sumbmit-buttons">
-										<InputBox
-											type="button"
-											name="cancel"
-											className="btn btn-outline-secondary button"
-											value="Cancel"
-											onClick={this.cleanForm}
-										/>
-										<InputBox
-											type="button"
-											name="next"
-											className="btn btn-primary button"
-											value="Next"
-											onClick={this.onSubmitForm}
-										/>
-									</Row>
-								</CardBody>
-							</Card>
-						</Col>
-					</Row>
-			}
-			</>
+									<InputBox
+										type="button"
+										name="next"
+										className="btn btn-primary button"
+										value="Next"
+										onClick={this.onSubmitForm}
+									/>
+								</Row>
+							</CardBody>
+						</Card>
+					</Col>
+				</Row>
 		);
 	}
 }

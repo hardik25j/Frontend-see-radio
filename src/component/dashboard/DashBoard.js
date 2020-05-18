@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { postApi } from '../../utils/interceptors.js';
 import { toast } from 'react-toastify';
-import ToDoList from './ToDoList.js';
 import { connect } from "react-redux";
-import * as action from "../../action/action";
-import Loader from "../common-component/Loader";
-import PieChart from './ReportChart.js';
+
 import StatusChart from './StatusChart.js';
+import ToDoList from './ToDoList.js';
+import PieChart from './ReportChart.js';
+import Loader from "../common-component/Loader";
+import { postApi } from '../../utils/interceptors.js';
+import * as action from "../../action/action";
 
 function DashBoard(props) {
 	const { apiLoader } = props.loader;

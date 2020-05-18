@@ -1,6 +1,7 @@
 import React from "react";
-import loading from '../../assets/image/thumb.gif';
 import { connect } from "react-redux";
+
+import loading from '../../assets/image/thumb.gif';
 
 function Loader(props) {
 

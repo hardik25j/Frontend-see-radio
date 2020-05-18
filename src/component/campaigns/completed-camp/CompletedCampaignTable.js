@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactTable from 'react-table'
+
 import FilterCompletedCamp from "./FilterCompletedCamp";
 
 export default class CompltedCampaign extends Component {

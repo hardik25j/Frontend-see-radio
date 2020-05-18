@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { Row, Col } from "reactstrap";
+import { toast } from 'react-toastify';
+import Axios from "axios";
+
 import InputBox from "../../common-component/InpuxBox";
 import DropDownBox from '../../common-component/DropDownBox';
 import { getApi } from '../../../utils/interceptors';
-import { toast } from 'react-toastify';
-import Axios from "axios";
 
 function Company(props) {
   const { isReq, companyName, companyWebsite, changeDropDown, errors, handleChange, onFieldValidate } = props;
@@ -26,7 +27,7 @@ function Company(props) {
           return null;
         })
         industryResponse.data.map((item) => {
-          list2.push({ value: item.id, label: item.name });
+          list2 = [...list2, { value: item.id, label: item.name }];
           return null;
         })
         setSalesPersonList(list1);

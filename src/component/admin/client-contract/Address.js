@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import { Row, Col } from "reactstrap";
+import { toast } from 'react-toastify';
+
 import InputBox from "../../common-component/InpuxBox";
 import DropDownBox from '../../common-component/DropDownBox';
 import { getApi } from '../../../utils/interceptors';
-import { toast } from 'react-toastify';
 
 function Address(props) {
   const { isDisabled, secondary, address1, address2, city, country, changeDropDown,

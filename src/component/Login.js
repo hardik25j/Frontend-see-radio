@@ -8,13 +8,13 @@ import {
   CardBody
 } from 'reactstrap';
 import { toast } from 'react-toastify';
-
-import { logIn, isLogin } from '../utils';
-import InputBox from './common-component/InpuxBox';
-import { postApi } from '../utils/interceptors';
-import { checkValidation, getRegExp } from "./common-component/Validation";
-import logo from '../assets/image/logo.png';
 import { connect } from "react-redux";
+
+import InputBox from './common-component/InpuxBox';
+import { checkValidation, getRegExp } from "./common-component/Validation";
+import { logIn, isLogin } from '../utils';
+import { postApi } from '../utils/interceptors';
+import logo from '../assets/image/logo.png';
 import * as action from "../action/action";
 
 class Login extends Component {

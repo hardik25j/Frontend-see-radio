@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import ReactTable from 'react-table'
-import { postApi } from "../../../utils/interceptors";
 import { toast } from "react-toastify";
+
+import { postApi } from "../../../utils/interceptors";
 import FilterCampMarket from "./FilterCampMarket";
 
 export default class CampaignMarketTable extends Component {

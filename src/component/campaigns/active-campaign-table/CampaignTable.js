@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import ReactTable from 'react-table'
-import { postApi } from "../../../utils/interceptors";
 import { toast } from "react-toastify";
+import ReactTable from 'react-table'
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
 import FilterCampaign from "./FilterCampaign";
 import PersonDetail from "./PersonDetail";
-import { Link } from "react-router-dom";
-import Pagination from "../../common-component/Pagination";
-import { connect } from "react-redux";
-import * as action from "../../../action/action";
 import Loader from "../../common-component/Loader";
-
+import Pagination from "../../common-component/Pagination";
+import * as action from "../../../action/action";
+import { postApi } from "../../../utils/interceptors";
 
 class CampaignTable extends Component {
   constructor(props) {
@@ -25,15 +25,15 @@ class CampaignTable extends Component {
     }
     this.filterData = {
       title: '',
-      statusID: {},
-      statusWithPersonID: {},
+      statusID: '',
+      statusWithPersonID: '',
       statusDueDate: '',
       startBefore: '',
       startAfter: '',
       endBefore: '',
       endAfter: '',
-      sosID: {},
-      clientCompanyID: {}
+      sosID: '',
+      clientCompanyID: ''
     }
   }
 
@@ -67,12 +67,14 @@ class CampaignTable extends Component {
       })
     }
 
+
     this.props.dispatch({ type: action.API_LOADER_ACTIVE })
     postApi("api/campaign/getAllCampaigns", payLoad)
       .then(response => {
         this.setState({
           data: response.data.rows,
-          totalResult: response.data.count
+          totalResult: response.data.count,
+          filterBar: false
         }, () => this.props.dispatch({ type: action.API_LOADER_INACTIVE }))
       })
       .catch((response) => response && toast.error(response.errorMessage));
